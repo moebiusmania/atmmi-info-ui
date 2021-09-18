@@ -26,6 +26,8 @@ const Status = (): JSX.Element => {
     return `h-4 bg-gray-400 rounded w-${value}/4`;
   }
 
+  const lineClass = (line: string): string => `badge bg-line-${line} rounded-none border-0`;
+
   useEffect(() => {
     fetch(resource)
       .then((response: Response): Promise<any> => response.json())
@@ -39,7 +41,7 @@ const Status = (): JSX.Element => {
         {data.map((e: LineStatus, i: number): JSX.Element => 
          loading ?
           <li key={i} className="my-2 animate-pulse"><div className={loadingClass()}></div></li> :
-          <li key={i}><div className={`badge bg-line-${e.line} rounded-none border-0`}>{e.line}</div> {e.text} | {e.status} </li> )}
+          <li key={i}><div className={lineClass(e.line)}>{e.line}</div> {e.text} | {e.status} </li> )}
       </ul>
     </Card>
   )

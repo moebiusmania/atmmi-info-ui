@@ -1,7 +1,12 @@
 module.exports = {
   purge: [],
   darkMode: 'class', // or 'media' or 'class'
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: {
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+    options: {
+      safelist: ['bg-line-M1', 'bg-line-M2', 'bg-line-M3', 'bg-line-M5'],
+    },
+  },
   theme: {
     extend: {
       colors: {

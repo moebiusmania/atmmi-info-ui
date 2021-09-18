@@ -21,8 +21,11 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "test": "craco test", 
+    "eject": "react-scripts eject",
+    "prebuild": "rm -rf build",
+    "prepreview": "npm run build",
+    "preview": "http-server ./build"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +47,7 @@
   },
   "devDependencies": {
     "autoprefixer": "9.8.6",
+    "http-server": "13.0.2",
     "postcss": "7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.7"
   }
