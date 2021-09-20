@@ -2,6 +2,7 @@
   "name": "atmmi-info-ui",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://moebiusmania.github.io/atmmi-info-ui/",
   "dependencies": {
     "@craco/craco": "6.3.0",
     "@testing-library/jest-dom": "5.14.1",
