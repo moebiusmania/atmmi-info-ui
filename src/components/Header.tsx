@@ -1,4 +1,3 @@
-
 const Header = (): JSX.Element => {
   return (
     <header className="navbar mb-2 shadow-lg bg-primary text-white">
@@ -10,12 +9,10 @@ const Header = (): JSX.Element => {
         </button>
       </div> */}
       <div className="flex-1 px-2 mx-2">
-        <h1 className="text-lg font-bold">
-          ATM Dashboard
-        </h1>
+        <h1 className="text-lg font-bold">ATM Dashboard</h1>
       </div>
     </header>
-  )
+  );
 };
 
 export default Header;

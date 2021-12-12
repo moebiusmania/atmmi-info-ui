@@ -1,55 +1,22 @@
 {
   "name": "atmmi-info-ui",
   "version": "1.0.0",
-  "private": true,
   "homepage": "https://moebiusmania.github.io/atmmi-info-ui/",
-  "dependencies": {
-    "@craco/craco": "6.3.0",
-    "@testing-library/jest-dom": "5.14.1",
-    "@testing-library/react": "12.1.0",
-    "@testing-library/user-event": "13.2.1",
-    "@types/jest": "27.0.1",
-    "@types/node": "16.9.2",
-    "@types/react": "17.0.21",
-    "@types/react-dom": "17.0.9",
-    "daisyui": "1.14.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-scripts": "4.0.3",
-    "typescript": "4.4.3",
-    "web-vitals": "2.1.0"
-  },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test", 
-    "eject": "react-scripts eject",
-    "prebuild": "rm -rf build",
-    "prepreview": "npm run build",
-    "preview": "http-server ./build"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "daisyui": "1.16.4",
+    "preact": "10.5.15"
   },
   "devDependencies": {
-    "autoprefixer": "9.8.6",
-    "http-server": "13.0.2",
-    "postcss": "7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@2.2.7"
+    "@preact/preset-vite": "2.1.5",
+    "autoprefixer": "10.4.0",
+    "postcss": "8.4.4",
+    "tailwindcss": "3.0.1",
+    "typescript": "4.4.4",
+    "vite": "2.7.1"
   }
 }

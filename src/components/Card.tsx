@@ -1,11 +1,12 @@
+import { ComponentChildren } from "preact";
 
 type Props = {
-  title: string,
-  children: React.ReactNode
-}
+  title: string;
+  children: ComponentChildren;
+};
 
 const Card = (props: Props): JSX.Element => {
-  const title: string = props.title || 'Title';
+  const title: string = props.title || "Title";
 
   return (
     <div className="card bordered bg-white shadow-md">
@@ -14,7 +15,7 @@ const Card = (props: Props): JSX.Element => {
         {props.children}
       </div>
     </div>
-  )
+  );
 };
 
 export default Card;

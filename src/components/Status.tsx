@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "preact/hooks";
 
-import Card from './Card';
+import Card from "./Card";
 
 type LineStatus = {
-  line: string,
-  text: string,
-  status: string,
-}
+  line: string;
+  text: string;
+  status: string;
+};
 
 const mock: LineStatus = {
-  line: 'foo',
-  text: 'bar',
-  status: 'pippo'
-}
+  line: "foo",
+  text: "bar",
+  status: "pippo",
+};
 
 const mockData: LineStatus[] = Array(10).fill(mock);
 
@@ -24,9 +24,10 @@ const Status = (): JSX.Element => {
   const loadingClass = (): string => {
     const value: number = Math.ceil(Math.random() * 4);
     return `h-4 bg-gray-400 rounded w-${value}/4`;
-  }
+  };
 
-  const lineClass = (line: string): string => `badge bg-line-${line} rounded-none border-0`;
+  const lineClass = (line: string): string =>
+    `badge bg-line-${line} rounded-none border-0`;
 
   useEffect(() => {
     fetch(resource)
@@ -38,13 +39,22 @@ const Status = (): JSX.Element => {
   return (
     <Card title="Status linee MM">
       <ul>
-        {data.map((e: LineStatus, i: number): JSX.Element => 
-         loading ?
-          <li key={i} className="my-2 animate-pulse"><div className={loadingClass()}></div></li> :
-          <li key={i}><div className={lineClass(e.line)}>{e.line}</div> {e.text} | {e.status} </li> )}
+        {data.map(
+          (e: LineStatus, i: number): JSX.Element =>
+            loading ? (
+              <li key={i} className="my-2 animate-pulse">
+                <div className={loadingClass()}></div>
+              </li>
+            ) : (
+              <li key={i}>
+                <div className={lineClass(e.line)}>{e.line}</div> {e.text} |{" "}
+                {e.status}{" "}
+              </li>
+            )
+        )}
       </ul>
     </Card>
-  )
+  );
 };
 
 export default Status;

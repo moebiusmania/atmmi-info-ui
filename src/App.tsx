@@ -1,8 +1,8 @@
-import React from 'react';
+import { h } from "preact";
 
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
 
 const App = (): JSX.Element => {
   return (
@@ -12,6 +12,6 @@ const App = (): JSX.Element => {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
