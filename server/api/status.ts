@@ -1,30 +1,25 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
-import https from "https";
 
 import ENDPOINT from "../endpoint";
 import type { LineStatus } from "../../types/line";
 
-const instance = axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
-});
-
-instance.get(ENDPOINT);
-
 // export default defineEventHandler(async (): Promise<LineStatus[]> => {
 
 export default defineEventHandler(async () => {
-  const agent = new https.Agent({
-    rejectUnauthorized: false,
+  /*const data = await $fetch(ENDPOINT, {
+    method: "GET",
+    mode: "cors",
+  });*/
+  const response = await fetch(ENDPOINT, {
+    method: "GET",
+    mode: "cors",
   });
-  console.log(ENDPOINT);
-  const { data } = await axios.get(ENDPOINT, { httpsAgent: agent });
-
-  const $ = cheerio.load(data);
+  const data = await response.json();
+  console.log(data);
+  //const $ = cheerio.load(data);
 
   return {
-    html: $.html(),
+    // html: $.html(),
+    test: data,
   };
 });

@@ -9,7 +9,7 @@ const mock: LineStatus = {
 
 const mockData: LineStatus[] = Array(10).fill(mock);
 
-const resource: string = "https://atmmi-info-api.herokuapp.com/status";
+const resource: string = "/api/status";
 
 const loading = ref(true);
 const data = ref(mockData);
@@ -23,8 +23,7 @@ const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
 
 onMounted(async (): Promise<void> => {
-  fetch(resource)
-    .then((response) => response.json())
+  $fetch(resource)
     .then((json: LineStatus[]) => (data.value = json))
     .then(() => (loading.value = false));
 });
