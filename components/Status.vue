@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-type LineStatus = {
-  line: string;
-  text: string;
-  status: string;
-};
+import type { LineStatus } from "../types/line";
 
 const mock: LineStatus = {
   line: "foo",

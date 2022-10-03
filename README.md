@@ -2,7 +2,7 @@
 
 > This project is not officially affiliated with ATM Milano in any ways, it's just a part-time project.
 
-A clean and modern web UI dashboard that displays some quick informations from the [ATM Milano news website](https://www.atm.it/it/AtmNews/Pagine/default.aspx) (_a messy and non-responsive website_), retrieving the data through a custom REST API.
+A clean and modern web UI dashboard that displays some quick informations from the [https://www.atm.it/it/Pagine/default.aspx](https://www.atm.it/it/AtmNews/Pagine/default.aspx) (_a slight messy and non-responsive website_), retrieving the data through a custom REST API.
 
 <!-- **Live at:** [https://atmmi-info.appspot.com/](https://atmmi-info.appspot.com/) -->
 
@@ -17,7 +17,16 @@ A clean and modern web UI dashboard that displays some quick informations from t
 
 ## Backend APIs
 
-This application works in tandem with the [moebiusmania/atmmi-info-api](https://github.com/moebiusmania/atmmi-info-api) project which provides the REST APIs that are consumed.
+Since I'm using the Nuxt(3) framework, the APIs are developed and exposed within the project. You can find the source code in the `/server/api` folder and they are exposed by appending the `/api/` suffix at the end of the application URL.
+
+Available routes:
+
+| **Route** | **Description** |
+|--|--|
+| `/api/service`   | health check of the API |
+| `/api/status`    | current status of the M lines |
+| `/api/traffic`   | planned traffic updates |
+| `/api/news`      | ATM news room |
 
 ## Install & run
 
@@ -43,13 +52,15 @@ the application will be available locally in your browser at the url `http://loc
 
 ## Development
 
-Build the deployable package:
+Build the project:
 
 ```
 $ npm run build
 ```
 
-the files will be available in the `/dist` folder.
+the result will be available in the `/output` folder and can be deployed on any Node.js hosting.
+
+[Vercel](https://vercel.com/) is the most common and easy to use solution for this scope, and its the one that I'm actually using to deploy this application.
 
 ## License
 
