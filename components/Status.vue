@@ -7,12 +7,10 @@ const mock: LineStatus = {
   status: "pippo",
 };
 
-const mockData: LineStatus[] = Array(10).fill(mock);
-
 const resource: string = "/api/status";
 
 const loading = ref(true);
-const data = ref(mockData);
+const data = ref(Array(10).fill(mock));
 
 const loadingClass = (): string => {
   const value: number = Math.ceil(Math.random() * 4);
@@ -24,7 +22,7 @@ const lineClass = (line: string): string =>
 
 onMounted(async (): Promise<void> => {
   $fetch(resource)
-    .then((json: LineStatus[]) => (data.value = json))
+    .then((json: Array<LineStatus>) => (data.value = json))
     .then(() => (loading.value = false));
 });
 </script>

@@ -3,7 +3,7 @@ const today: Date = new Date();
 </script>
 
 <template>
-  <footer class="text-center py-6">
+  <footer class="text-center p-6">
     <p class="font-light text-sm">
       <span>{{ today.getFullYear() }}</span> - Sviluppato da{{ " " }}
       <a
