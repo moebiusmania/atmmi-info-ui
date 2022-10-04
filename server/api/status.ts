@@ -18,7 +18,11 @@ const getContent = (row: Element, selector: string): string =>
 
 const getRows = (document): Element[] => {
   const trs: NodeListOf<Element> = document.querySelectorAll("#StatusLinee tr");
-  return [...trs].filter((e) => e.textContent.trim().length > 0);
+  return [...trs].filter(
+    (e) =>
+      e.textContent.trim().length > 0 &&
+      e.querySelectorAll(".StatusLinee_mex").length === 0
+  );
 };
 
 export default defineEventHandler(async (): Promise<LineStatus[]> => {
@@ -28,6 +32,7 @@ export default defineEventHandler(async (): Promise<LineStatus[]> => {
   });
   const { document } = new JSDOM(data).window;
   const rows: Element[] = getRows(document);
+  console.log(rows.length);
 
   const json: LineStatus[] = rows.map((row, index) => {
     return {
