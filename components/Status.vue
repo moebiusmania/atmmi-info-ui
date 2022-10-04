@@ -39,6 +39,7 @@ onMounted(async (): Promise<void> => {
         <div :class="loading ? loadingClass() : lineClass(item.line)">
           <span v-if="!loading">{{ item.line }}</span>
         </div>
+        {{ " " }}
         <span v-if="!loading"
           >{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span
         >

@@ -12,10 +12,8 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "5.3.3",
-    "axios": "0.27.2",
-    "cheerio": "1.0.0-rc.12",
     "daisyui": "2.31.0",
-    "nuxt": "3.0.0-rc.11",
-    "pretty": "2.0.0"
+    "jsdom": "20.0.1",
+    "nuxt": "3.0.0-rc.11"
   }
 }
