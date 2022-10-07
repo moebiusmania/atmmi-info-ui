@@ -2,11 +2,11 @@
 import { loadingClass } from "./utils";
 import type { News } from "../types/news";
 
-const resource: string = "/api/news";
+const resource: string = "/api/traffic";
 
 const loading = ref(true);
 const data = ref(
-  Array(10).fill({
+  Array(6).fill({
     text: "foo",
     url: "bar",
   })
@@ -19,7 +19,7 @@ onMounted(async (): Promise<void> => {
 });
 </script>
 <template>
-  <Card title="ATM informa">
+  <Card title="Cambiamenti">
     <ul>
       <li
         v-for="(item, index) in data"

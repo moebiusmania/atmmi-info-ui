@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { loadingClass } from "./utils";
 import type { LineStatus } from "../types/line";
 
 const resource: string = "/api/status";
@@ -11,11 +12,6 @@ const data = ref(
     status: "pippo",
   })
 );
-
-const loadingClass = (): string => {
-  const value: number = Math.ceil(Math.random() * 4);
-  return `h-4 bg-gray-400 rounded w-${value}/4`;
-};
 
 const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
