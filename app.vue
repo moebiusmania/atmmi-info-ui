@@ -1,8 +1,19 @@
 <script lang="ts" setup>
 useHead({
   title: "ATM Milano Info Dashboard",
+  meta: [
+    { description: "ATM Milano info & status webapp." },
+    { author: "Salvatore Laisa" },
+  ],
+  link: [
+    {
+      rel: "icon",
+      href: "https://www.atm.it/_layouts/atm/images/favicon.ico",
+      type: "image/x-icon",
+    },
+  ],
   htmlAttrs: {
-    lang: "en",
+    lang: "it-IT",
     "data-theme": "corporate",
   },
 });
