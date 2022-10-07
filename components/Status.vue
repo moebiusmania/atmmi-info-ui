@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import type { LineStatus } from "../types/line";
 
-const mock: LineStatus = {
-  line: "foo",
-  text: "bar",
-  status: "pippo",
-};
-
 const resource: string = "/api/status";
 
 const loading = ref(true);
-const data = ref(Array(10).fill(mock));
+const data = ref(
+  Array(10).fill({
+    line: "foo",
+    text: "bar",
+    status: "pippo",
+  })
+);
 
 const loadingClass = (): string => {
   const value: number = Math.ceil(Math.random() * 4);

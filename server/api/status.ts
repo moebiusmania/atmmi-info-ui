@@ -1,6 +1,6 @@
 import jsdom from "jsdom";
 
-import ENDPOINT from "../endpoint";
+import { getPage } from "../endpoint";
 import type { LineStatus } from "../../types/line";
 
 const { JSDOM } = jsdom;
@@ -36,10 +36,7 @@ const getRows = (document): Array<Element> => {
 };
 
 export default defineEventHandler(async (): Promise<Array<LineStatus>> => {
-  const data = await $fetch(ENDPOINT, {
-    method: "GET",
-    mode: "cors",
-  });
+  const data = await getPage();
   const { document } = new JSDOM(data).window;
   const rows: Array<Element> = getRows(document);
 
