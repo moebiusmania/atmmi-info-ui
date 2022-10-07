@@ -2,8 +2,8 @@
 useHead({
   title: "ATM Milano Info Dashboard",
   meta: [
-    { description: "ATM Milano info & status webapp." },
-    { author: "Salvatore Laisa" },
+    { name: "description", content: "ATM Milano info & status webapp." },
+    { name: "author", content: "Salvatore Laisa" },
   ],
   link: [
     {
