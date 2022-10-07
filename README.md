@@ -2,22 +2,31 @@
 
 > This project is not officially affiliated with ATM Milano in any ways, it's just a part-time project.
 
-A clean and modern web UI dashboard that displays some quick informations from the [ATM Milano news website](https://www.atm.it/it/AtmNews/Pagine/default.aspx) (_a messy and non-responsive website_), retrieving the data through a custom REST API.
+A clean and modern web UI dashboard that displays some quick informations from the [https://www.atm.it/it/Pagine/default.aspx](https://www.atm.it/it/AtmNews/Pagine/default.aspx) (_a slight messy and non-responsive website_), retrieving the data through a custom REST API.
 
-<!-- **Live at:** [https://atmmi-info.appspot.com/](https://atmmi-info.appspot.com/) -->
+**Live at:** [https://atmmi-info-ui-moebiusmania.vercel.app/](https://atmmi-info-ui-moebiusmania.vercel.app/)
 
 ## Built with
 
-- [Node.js](https://nodejs.org/) v16+
-- [Preact](https://preactjs.com/) - main UI framework
-- [Vite](https://vitejs.dev/) - project scaffolding
+- [Node.js](https://nodejs.org/) v16 (_planning to upgrade to v18 as soon as it hits LTS_)
+- [Vue 3](https://vuejs.org/) - main UI component library
+- [Nuxt 3](https://v3.nuxtjs.org/) - application and API framework
 - [Typescript](https://www.typescriptlang.org/) - static type checking
 - [Tailwind.css](https://tailwindcss.com/) - utility-first CSS framework
 - [Daisy UI](https://daisyui.com/) - components library built on top of Tailwind.css
 
 ## Backend APIs
 
-This application works in tandem with the [moebiusmania/atmmi-info-api](https://github.com/moebiusmania/atmmi-info-api) project which provides the REST APIs that are consumed.
+Since I'm using the Nuxt(3) framework, the APIs are developed and exposed within the project. You can find the source code in the `/server/api` folder and they are exposed by appending the `/api/` suffix at the end of the application URL.
+
+Available routes:
+
+| **Route**      | **Description**               |
+| -------------- | ----------------------------- |
+| `/api/service` | health check of the API       |
+| `/api/status`  | current status of the M lines |
+| `/api/traffic` | planned traffic updates       |
+| `/api/news`    | ATM news room                 |
 
 ## Install & run
 
@@ -43,13 +52,17 @@ the application will be available locally in your browser at the url `http://loc
 
 ## Development
 
-Build the deployable package:
+> **NOTE:** I'm not understanding if the issue comes from my application or the ATM website, but unfortunately to have this application work properly it is required to disable the TLS check in Node.js, this can be done by creating a `.env` file with `NODE_TLS_REJECT_UNAUTHORIZED=0` as content. But I don't want this to be the final solution.
+
+Build the project:
 
 ```
 $ npm run build
 ```
 
-the files will be available in the `/dist` folder.
+the result will be available in the `/output` folder and can be deployed on any Node.js hosting.
+
+[Vercel](https://vercel.com/) is the most common and easy to use solution for this scope, and its the one that I'm actually using to deploy this application.
 
 ## License
 
