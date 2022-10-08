@@ -20,7 +20,7 @@ useHead({
 </script>
 
 <template>
-  <div class="bg-gray-50 h-screen">
+  <div class="bg-gray-50 dark:bg-base-200 h-screen">
     <Header />
     <Dashboard />
     <Footer />
