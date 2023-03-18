@@ -1,35 +1,21 @@
 <script lang="ts" setup>
-import type { Ref } from 'vue'
-
 import { loadingClass } from "./utils";
 import type { News } from "../types/news";
 
 const resource: string = "/api/news";
 
-const loading: Ref<boolean> = ref(true);
-const data: Ref<Array<News>> = ref(
-  Array(10).fill({
-    text: "foo",
-    url: "bar",
-  })
-);
-
-onMounted(async (): Promise<void> => {
-  const json: Array<News> = await $fetch(resource)
-  data.value = json
-  loading.value = false
-});
-
+const { pending, data } = useLazyFetch<Array<News>>(resource)
 </script>
+
 <template>
   <Card title="ATM informa">
     <ul>
       <li
         v-for="(item, index) in data"
         :key="index"
-        :class="loading ? 'my-2 animate-pulse' : 'list-disc list-inside'"
+        :class="pending ? 'my-2 animate-pulse' : 'list-disc list-inside'"
       >
-        <div v-if="loading" :class="loadingClass()"></div>
+        <div v-if="pending" :class="loadingClass()"></div>
         <a
           v-else
           :href="item.url"
