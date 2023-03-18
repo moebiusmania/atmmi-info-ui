@@ -1,11 +1,13 @@
 <script lang="ts" setup>
+import type { Ref } from 'vue'
+
 import { loadingClass } from "./utils";
 import type { LineStatus } from "../types/line";
 
 const resource: string = "/api/status";
 
-const loading = ref(true);
-const data = ref(
+const loading: Ref<boolean> = ref(true);
+const data: Ref<Array<LineStatus>> = ref(
   Array(10).fill({
     line: "foo",
     text: "bar",
@@ -17,10 +19,11 @@ const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
 
 onMounted(async (): Promise<void> => {
-  $fetch(resource)
-    .then((json: Array<LineStatus>) => (data.value = json))
-    .then(() => (loading.value = false));
+  const json: Array<LineStatus> = await $fetch(resource)
+  data.value = json
+  loading.value = false
 });
+
 </script>
 <template>
   <Card title="Status linee MM">
