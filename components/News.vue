@@ -4,7 +4,7 @@ import type { News } from "../types/news";
 
 const resource: string = "/api/news";
 
-const { pending, data } = useLazyFetch<Array<News>>(resource, {
+const { pending, data } = useFetch<Array<News>>(resource, {
   default: mockNews
 })
 </script>

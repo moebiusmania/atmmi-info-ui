@@ -7,7 +7,7 @@ const resource: string = "/api/status";
 const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
 
-const { pending, data } = useLazyFetch<Array<LineStatus>>(resource, {
+const { pending, data } = useFetch<Array<LineStatus>>(resource, {
   default: mockLine
 })
 </script>
