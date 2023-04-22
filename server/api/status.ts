@@ -10,11 +10,11 @@ const { JSDOM } = jsdom;
  */
 const getLine = (
   row: Element,
-  selector: string = "div.StatusLinee_Stretch span"
+  selector: string = "img"
 ): string => {
   const element: Element = row.querySelector(selector) as Element;
   // @ts-ignore
-  return element.id.match(/([M][0-9])\w/g)[0].replace("_", "");
+  return element.getAttribute("title");
 };
 
 /**
@@ -31,6 +31,7 @@ const getContent = (row: Element, selector: string): string => {
  */
 const getRows = (document: Document): Array<Element> => {
   const trs: NodeListOf<Element> = document.querySelectorAll("#StatusLinee tr");
+  
   return [...trs].filter(
     (e) =>
       // @ts-ignore
@@ -44,11 +45,13 @@ export default defineEventHandler(async (): Promise<Array<LineStatus>> => {
   const { document } = new JSDOM(data).window;
   const rows: Array<Element> = getRows(document);
 
+  console.log("----trs", rows)
+
   const json: Array<LineStatus> = rows.map((row, index) => {
     return {
       line: getLine(row),
-      text: getContent(row, "div.StatusLinee_DirezioneScritta"),
-      status: getContent(row, "div.StatusLinee_Stretch span"),
+      text: getContent(row, ".StatusLinee_StatoScritta"),
+      status: getContent(row, ".StatusLinee_StatoScritta"),
     };
   });
 

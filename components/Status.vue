@@ -20,7 +20,8 @@ const { pending, data } = useFetch<Array<LineStatus>>(resource, {
           <span v-if="!pending">{{ item.line }}</span>
         </div>
         {{ " " }}
-        <span v-if="!pending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span>
+        <!-- <span v-if="!pending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
+        <span v-if="!pending">{{ " " }} {{ item.status }}</span>
       </li>
     </ul>
   </Card>

@@ -11,10 +11,10 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "6.6.4",
+    "@nuxtjs/tailwindcss": "6.6.6",
     "@types/jsdom": "21.1.1",
     "daisyui": "2.51.5",
     "jsdom": "21.1.1",
-    "nuxt": "3.3.1"
+    "nuxt": "3.4.2"
   }
 }
