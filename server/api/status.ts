@@ -14,7 +14,7 @@ const getLine = (
 ): string => {
   const element: Element = row.querySelector(selector) as Element;
   // @ts-ignore
-  return element.getAttribute("title");
+  return element?.getAttribute("title") || "";
 };
 
 /**
@@ -36,7 +36,8 @@ const getRows = (document: Document): Array<Element> => {
     (e) =>
       // @ts-ignore
       e.textContent.trim().length > 0 &&
-      e.querySelectorAll(".StatusLinee_mex").length === 0
+      e.querySelectorAll(".StatusLinee_mex").length === 0 &&
+      !e.id
   );
 };
 
@@ -45,9 +46,9 @@ export default defineEventHandler(async (): Promise<Array<LineStatus>> => {
   const { document } = new JSDOM(data).window;
   const rows: Array<Element> = getRows(document);
 
-  console.log("----trs", rows)
+  // console.log("----trs", rows)
 
-  const json: Array<LineStatus> = rows.map((row, index) => {
+  const json: Array<LineStatus> = rows.map((row) => {
     return {
       line: getLine(row),
       text: getContent(row, ".StatusLinee_StatoScritta"),
