@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
+  content: [],
+  safelist: [
+    "bg-line-M1",
+    "bg-line-M2",
+    "bg-line-M3",
+    "bg-line-M4",
+    "bg-line-M5",
   ],
-  safelist: ["bg-line-M1", "bg-line-M2", "bg-line-M3", "bg-line-M4", "bg-line-M5"],
   theme: {
     extend: {
       colors: {
@@ -16,4 +21,7 @@ module.exports = {
     },
   },
   plugins: [require("daisyui")],
-}
+  daisyui: {
+    themes: ["corporate"],
+  },
+};

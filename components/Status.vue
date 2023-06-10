@@ -8,16 +8,20 @@ const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
 
 const { pending, data } = useFetch<Array<LineStatus>>(resource, {
-  default: mockLine
-})
+  default: mockLine,
+});
 </script>
 
 <template>
   <Card title="Status linee MM">
     <ul>
-      <li v-for="(item, index) in data" :key="index" :class="pending ? 'my-2 animate-pulse' : ''">
+      <li
+        v-for="(item, index) in data"
+        :key="index"
+        :class="pending ? 'my-2 animate-pulse' : ''"
+      >
         <div :class="pending ? loadingClass() : lineClass(item.line)">
-          <span v-if="!pending">{{ item.line }}</span>
+          <span v-if="!pending" class="text-base-100">{{ item.line }}</span>
         </div>
         {{ " " }}
         <!-- <span v-if="!pending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
