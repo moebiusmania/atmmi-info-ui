@@ -4,9 +4,11 @@ import type { News } from "../types/news";
 
 const resource: string = "/api/traffic";
 
-const { pending, data } = useFetch<Array<News>>(resource, {
+const { pending, data, error } = await useFetch<Array<News>>(resource, {
   default: mockNews,
 });
+
+if (error.value) console.log("ERROR from useFetch: ", error.value);
 </script>
 
 <template>

@@ -52,7 +52,7 @@ the application will be available locally in your browser at the url `http://loc
 
 ## Development
 
-> **NOTE:** I'm not understanding if the issue comes from my application or the ATM website, but unfortunately to have this application work properly it is required to disable the TLS check in Node.js, this can be done by creating a `.env` file with `NODE_TLS_REJECT_UNAUTHORIZED=0` as content. But I don't want this to be the final solution.
+> **NOTE:** ~~I'm not understanding if the issue comes from my application or the ATM website, but unfortunately to have this application work properly it is required to disable the TLS check in Node.js, this can be done by creating a `.env` file with `NODE_TLS_REJECT_UNAUTHORIZED=0` as content. But I don't want this to be the final solution.~~ Unfortunately moving from Node.js v16 to v18+ brought up an issue when trying to fetching the ATM Milano website, you can check the final solution in the `/server/endpoint.ts` file and read more details on the cause on [an issue that I've opened to Nuxt team](https://github.com/nuxt/nuxt/issues/21609).
 
 Build the project:
 

@@ -7,9 +7,11 @@ const resource: string = "/api/status";
 const lineClass = (line: string): string =>
   `badge bg-line-${line} rounded-none border-0`;
 
-const { pending, data } = useFetch<Array<LineStatus>>(resource, {
+const { pending, data, error } = await useFetch<Array<LineStatus>>(resource, {
   default: mockLine,
 });
+
+if (error.value) console.log("ERROR from useFetch: ", error.value);
 </script>
 
 <template>
