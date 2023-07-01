@@ -19,7 +19,7 @@ if (error.value) console.log("ERROR from useFetch: ", error.value);
         <li
           v-for="(item, index) in data"
           :key="index"
-          :class="pending ? 'my-2 animate-pulse' : 'list-disc list-inside'"
+          :class="pending ? 'my-2 animate-pulse' : 'my-2 align-middle'"
         >
           <div v-if="pending" :class="loadingClass()"></div>
           <a
@@ -28,7 +28,7 @@ if (error.value) console.log("ERROR from useFetch: ", error.value);
             target="_blank"
             rel="nofollow noopener"
             class="hover:underline hover:text-primary"
-            >{{ item.text }}</a
+            ><Icon name="ri:external-link-fill" /> {{ item.text }}</a
           >
         </li>
       </ul>

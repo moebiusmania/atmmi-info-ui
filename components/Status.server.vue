@@ -5,7 +5,7 @@ import type { LineStatus } from "../types/line";
 const resource: string = "/api/status";
 
 const lineClass = (line: string): string =>
-  `badge bg-line-${line} rounded-none border-0`;
+  `badge bg-line-${line} rounded-none border-0 w-10`;
 
 const { pending, data, error } = await useFetch<Array<LineStatus>>(resource, {
   default: mockLine,
