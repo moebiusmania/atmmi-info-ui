@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { loadingClass, mockNews } from "./utils";
+import { loadingClass } from "./utils";
 import type { News } from "../types/news";
 
 const resource: string = "/api/news";
 
-const { pending, data, error } = await useFetch<Array<News>>(resource, {
-  default: mockNews,
-});
+const { pending, data: raw, error } = await useFetch<Array<News>>(resource);
 
-if (error.value) console.log("ERROR from useFetch: ", error.value);
+if (error.value) console.error("ERROR from useFetch: ", error.value);
+
+const data = raw?.value?.slice(0, 7) ?? [];
 </script>
 
 <template>

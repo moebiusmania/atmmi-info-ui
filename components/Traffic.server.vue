@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { loadingClass, mockNews } from "./utils";
+import { loadingClass } from "./utils";
 import type { News } from "../types/news";
 
 const resource: string = "/api/traffic";
 
-const { pending, data, error } = await useFetch<Array<News>>(resource, {
-  default: mockNews,
-});
+const { pending, data, error } = await useFetch<Array<News>>(resource);
 
 if (error.value) console.log("ERROR from useFetch: ", error.value);
 </script>

@@ -1,17 +1,15 @@
 <script lang="ts" setup>
-import { loadingClass, mockLine } from "./utils";
+import { loadingClass } from "./utils";
 import type { LineStatus } from "../types/line";
 
 const resource: string = "/api/status";
 
 const lineClass = (line: string): string =>
-  `badge bg-line-${line} rounded-none border-0 w-10`;
+  `badge badge-lg bg-line-${line} rounded-none border-0 w-10`;
 
-const { pending, data, error } = await useFetch<Array<LineStatus>>(resource, {
-  default: mockLine,
-});
+const { pending, data, error } = await useFetch<Array<LineStatus>>(resource);
 
-if (error.value) console.log("ERROR from useFetch: ", error.value);
+if (error.value) console.error("ERROR from useFetch: ", error.value);
 </script>
 
 <template>
@@ -22,7 +20,7 @@ if (error.value) console.log("ERROR from useFetch: ", error.value);
         <li
           v-for="(item, index) in data"
           :key="index"
-          :class="pending ? 'my-2 animate-pulse' : ''"
+          :class="pending ? 'my-2 animate-pulse' : 'my-2'"
         >
           <div :class="pending ? loadingClass() : lineClass(item.line)">
             <span v-if="!pending" class="text-base-100">{{ item.line }}</span>
