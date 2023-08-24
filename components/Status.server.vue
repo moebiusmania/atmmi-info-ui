@@ -9,6 +9,11 @@ const lineClass = (line: string): string =>
 
 const { pending, data, error } = await useFetch<Array<LineStatus>>(resource);
 
+const inactive: Array<string> = ["tratta sospesa", "rallentata"];
+
+const notActive = (status: string): string =>
+  inactive.includes(status.toLocaleLowerCase()) ? "font-bold" : "font-normal";
+
 if (error.value) console.error("ERROR from useFetch: ", error.value);
 </script>
 
@@ -27,7 +32,9 @@ if (error.value) console.error("ERROR from useFetch: ", error.value);
           </div>
           {{ " " }}
           <!-- <span v-if="!pending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
-          <span v-if="!pending">{{ " " }} {{ item.status }}</span>
+          <span v-if="!pending" :class="notActive(item.status)"
+            >{{ " " }} {{ item.status }}</span
+          >
         </li>
       </ul>
     </div>
