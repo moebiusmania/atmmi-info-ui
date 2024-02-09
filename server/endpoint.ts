@@ -2,6 +2,7 @@ import { Agent } from "undici";
 import crypto from "node:crypto";
 
 const ENDPOINT: string = "https://www.atm.it/it/Pagine/default.aspx";
+
 const getPage = async (): Promise<string> =>
   $fetch(ENDPOINT, {
     mode: "cors",
