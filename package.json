@@ -4,7 +4,6 @@
   "version": "2.0.1",
   "homepage": "https://moebiusmania.github.io/atmmi-info-ui/",
   "scripts": {
-    "prebuild": "npm run test",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
