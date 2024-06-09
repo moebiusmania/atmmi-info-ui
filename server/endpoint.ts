@@ -3,6 +3,10 @@ import crypto from "node:crypto";
 
 const ENDPOINT: string = "https://www.atm.it/it/Pagine/default.aspx";
 
+/**
+ * Explanation for this fetch configuration can be found in 
+ * https://github.com/nuxt/nuxt/issues/21609
+ */
 const getPage = async (): Promise<string> =>
   $fetch(ENDPOINT, {
     mode: "cors",

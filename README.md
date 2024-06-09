@@ -8,7 +8,7 @@ A clean and modern web UI dashboard that displays some quick informations from t
 
 ## Built with
 
-- [Node.js](https://nodejs.org/) v16 (_planning to upgrade to v18 as soon as it hits LTS_)
+- [Node.js](https://nodejs.org/) v20.x
 - [Vue 3](https://vuejs.org/) - main UI component library
 - [Nuxt 3](https://v3.nuxtjs.org/) - application and API framework
 - [Typescript](https://www.typescriptlang.org/) - static type checking
