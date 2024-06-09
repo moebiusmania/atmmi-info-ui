@@ -13,15 +13,15 @@
     "test:ui": "vitest --coverage --ui"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "6.11.3",
-    "@types/jsdom": "21.1.6",
+    "@nuxtjs/tailwindcss": "6.12.0",
+    "@types/jsdom": "21.1.7",
     "@vitest/coverage-v8": "1.2.2",
     "@vitest/ui": "1.2.2",
-    "@vue/test-utils": "2.4.4",
-    "daisyui": "4.6.2",
-    "jsdom": "24.0.0",
+    "@vue/test-utils": "2.4.6",
+    "daisyui": "4.12.2",
+    "jsdom": "24.1.0",
     "nuxt": "3.10.1",
-    "nuxt-icon": "0.6.8",
+    "nuxt-icon": "0.6.10",
     "vitest": "1.2.2"
   }
 }
