@@ -7,9 +7,10 @@ const resource: string = "/api/status";
 const lineClass = (line: string): string =>
   `badge badge-lg bg-line-${line} rounded-none border-0 w-10`;
 
-const { pending, data, error } = await useFetch<Array<LineStatus>>(resource);
+const { status, data, error } = await useFetch<Array<LineStatus>>(resource);
 
 const inactive: Array<string> = ["tratta sospesa", "rallentata"];
+const isPending = status.value === "pending";
 
 const notActive = (status: string): string =>
   inactive.includes(status.toLocaleLowerCase()) ? "font-bold" : "font-normal";
@@ -25,14 +26,14 @@ if (error.value) console.error("ERROR from useFetch: ", error.value);
         <li
           v-for="(item, index) in data"
           :key="index"
-          :class="pending ? 'my-2 animate-pulse' : 'my-2'"
+          :class="isPending ? 'my-2 animate-pulse' : 'my-2'"
         >
-          <div :class="pending ? loadingClass() : lineClass(item.line)">
-            <span v-if="!pending" class="text-base-100">{{ item.line }}</span>
+          <div :class="isPending ? loadingClass() : lineClass(item.line)">
+            <span v-if="!isPending" class="text-base-100">{{ item.line }}</span>
           </div>
           {{ " " }}
-          <!-- <span v-if="!pending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
-          <span v-if="!pending" :class="notActive(item.status)"
+          <!-- <span v-if="!isPending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
+          <span v-if="!isPending" :class="notActive(item.status)"
             >{{ " " }} {{ item.status }}</span
           >
         </li>

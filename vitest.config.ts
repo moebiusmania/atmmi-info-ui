@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [Vue()],
   test: {
     coverage: {
-      exclude: exclude.concat([".", "**/__tests__/**", "**/.nuxt/**"]),
+      exclude: [...exclude, "**/__tests__/**", "**/.nuxt/**"],
       reporter: ["html"],
     },
     environment: "jsdom",

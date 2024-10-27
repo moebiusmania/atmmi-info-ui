@@ -4,7 +4,8 @@ import type { News } from "../types/news";
 
 const resource: string = "/api/traffic";
 
-const { pending, data, error } = await useFetch<Array<News>>(resource);
+const { status, data, error } = await useFetch<Array<News>>(resource);
+const isPending = status.value === "pending";
 
 if (error.value) console.log("ERROR from useFetch: ", error.value);
 </script>
@@ -17,9 +18,9 @@ if (error.value) console.log("ERROR from useFetch: ", error.value);
         <li
           v-for="(item, index) in data"
           :key="index"
-          :class="pending ? 'my-2 animate-pulse' : 'my-2 align-middle'"
+          :class="isPending ? 'my-2 animate-pulse' : 'my-2 align-middle'"
         >
-          <div v-if="pending" :class="loadingClass()"></div>
+          <div v-if="isPending" :class="loadingClass()"></div>
           <a
             v-else
             :href="item.url"

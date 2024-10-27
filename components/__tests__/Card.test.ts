@@ -1,7 +1,7 @@
 import { mount } from "@vue/test-utils";
 import { expect, test } from "vitest";
 
-import Card from "../Card.server.vue";
+import Card from "../Card.vue";
 
 test("<Card />", () => {
   const title = "Test title";
