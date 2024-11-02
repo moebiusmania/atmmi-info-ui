@@ -19,25 +19,22 @@ if (error.value) console.error("ERROR from useFetch: ", error.value);
 </script>
 
 <template>
-  <article class="card bg-white shadow-lg">
-    <div class="card-body">
-      <h2 class="card-title">Status linee MM</h2>
-      <ul>
-        <li
-          v-for="(item, index) in data"
-          :key="index"
-          :class="isPending ? 'my-2 animate-pulse' : 'my-2'"
+  <Card title="Status linee MM">
+    <ul>
+      <li
+        v-for="(item, index) in data"
+        :key="index"
+        :class="isPending ? 'my-2 animate-pulse' : 'my-2'"
+      >
+        <div :class="isPending ? loadingClass() : lineClass(item.line)">
+          <span v-if="!isPending" class="text-base-100">{{ item.line }}</span>
+        </div>
+        {{ " " }}
+        <!-- <span v-if="!isPending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
+        <span v-if="!isPending" :class="notActive(item.status)"
+          >{{ " " }} {{ item.status }}</span
         >
-          <div :class="isPending ? loadingClass() : lineClass(item.line)">
-            <span v-if="!isPending" class="text-base-100">{{ item.line }}</span>
-          </div>
-          {{ " " }}
-          <!-- <span v-if="!isPending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
-          <span v-if="!isPending" :class="notActive(item.status)"
-            >{{ " " }} {{ item.status }}</span
-          >
-        </li>
-      </ul>
-    </div>
-  </article>
+      </li>
+    </ul>
+  </Card>
 </template>
