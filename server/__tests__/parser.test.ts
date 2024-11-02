@@ -2,6 +2,7 @@ import jsdom from "jsdom";
 import { beforeAll, describe, expect, test } from "vitest";
 
 import { parseNews, getLine, getRows, getContent } from "../parser";
+import { loadingClass, mockLine } from "../../components/utils";
 
 const { JSDOM } = jsdom;
 
@@ -62,5 +63,19 @@ describe("parser.ts", () => {
     expect(rows.length).toBe(2);
     expect(rows[0].textContent?.trim()).toBe("OK");
     expect(rows[1].textContent?.trim()).toBe("KO");
+  });
+
+  test("loadingClass() returns valid width", () => {
+    const value = loadingClass();
+    const width = parseInt(value.match(/w-(\d)\/4/)?.[1] || "0");
+    expect(width).toBeGreaterThan(0);
+    expect(width).toBeLessThanOrEqual(4);
+  });
+
+  test("mockLine() returns correct structure", () => {
+    const lines = mockLine();
+    expect(lines[0]).toHaveProperty("line");
+    expect(lines[0]).toHaveProperty("text");
+    expect(lines[0]).toHaveProperty("status");
   });
 });
