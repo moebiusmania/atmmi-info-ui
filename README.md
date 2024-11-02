@@ -8,9 +8,8 @@ A clean and modern web UI dashboard that displays some quick informations from t
 
 ## Built with
 
-- [Node.js](https://nodejs.org/) v20.x
-- [Vue 3](https://vuejs.org/) - main UI component library
-- [Nuxt 3](https://v3.nuxtjs.org/) - application and API framework
+- [Node.js](https://nodejs.org/) v22.x
+- [Nuxt 3](https://nuxt.com/) - main application framework based on [Vue 3](https://vuejs.org/)
 - [Typescript](https://www.typescriptlang.org/) - static type checking
 - [Tailwind.css](https://tailwindcss.com/) - utility-first CSS framework
 - [Daisy UI](https://daisyui.com/) - components library built on top of Tailwind.css
