@@ -8,6 +8,6 @@ export default defineEventHandler((): Schema => {
   return {
     status: "Up & running",
     now: new Date(),
-    routes: ["/traffic", "/status", "/news"],
+    routes: ["/traffic", "/status", "/news", "/surface"],
   };
 });
