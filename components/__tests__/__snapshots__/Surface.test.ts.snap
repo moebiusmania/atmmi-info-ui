@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Surface /> > renders empty state > empty-state 1`] = `""`;
+
+exports[`<Surface /> > renders with data > with-data 1`] = `""`;

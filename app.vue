@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 useHead({
-  title: "ATM Milano Info Dashboard",
+  title: "🚌 ATM Milano Info Dashboard",
   meta: [
-    { name: "description", content: "ATM Milano info & status webapp." },
+    {
+      name: "description",
+      content: "ATM Milano info & status dashboard webapp.",
+    },
     { name: "author", content: "Salvatore Laisa" },
   ],
   link: [

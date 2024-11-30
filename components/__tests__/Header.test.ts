@@ -7,5 +7,5 @@ test("<Header />", () => {
   const wrapper = mount(Header);
 
   expect(wrapper.find("header").exists()).toBe(true);
-  expect(wrapper.text()).toContain("ATM Dashboard");
+  expect(wrapper.text()).toContain("🚌 ATM Milano Info Dashboard");
 });
