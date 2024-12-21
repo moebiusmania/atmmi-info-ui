@@ -1,11 +1,15 @@
+<script lang="ts" setup>
+const itemStyle = "mb-5 break-inside-avoid";
+</script>
+
 <template>
   <main
-    class="container mx-auto my-4 px-4 py-2 grid gap-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
+    class="container mx-auto my-4 px-4 py-2 columns-1 md:columns-2 xl:columns-3 gap-5"
   >
-    <Status />
-    <Surface />
-    <Traffic />
-    <News />
-    <StaticMap />
+    <div :class="itemStyle"><Status /></div>
+    <div :class="itemStyle"><Surface /></div>
+    <div :class="itemStyle"><Traffic /></div>
+    <div :class="itemStyle"><News /></div>
+    <div :class="itemStyle"><StaticMap /></div>
   </main>
 </template>
