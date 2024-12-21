@@ -1,21 +1,31 @@
-import jsdom from "jsdom";
-
-import { getPage } from "../endpoint";
+import { getApi } from "../endpoint";
 import type { LineStatus } from "../../types/line";
-import { getContent, getLine, getRows } from "../parser";
 
-const { JSDOM } = jsdom;
+interface StatusMeta {
+  extensionDataField: string | null;
+  PropertyChanged: string | null;
+}
+
+interface StatusDirezione extends StatusMeta {
+  descrizioneField: string;
+  statoField: string;
+  tratteField: string | null;
+}
+interface Status extends StatusMeta {
+  descrizioneField: string;
+  direzioniField: Array<StatusDirezione>;
+}
 
 export default defineEventHandler(async (): Promise<Array<LineStatus>> => {
-  const data = await getPage();
-  const { document } = new JSDOM(data).window;
-  const rows: Array<Element> = getRows(document);
+  const data = await getApi("sm");
 
-  const json: Array<LineStatus> = rows.map((row) => {
+  const json: Array<LineStatus> = data.map((item: Status) => {
     return {
-      line: getLine(row),
-      text: getContent(row, ".StatusLinee_StatoScritta"),
-      status: getContent(row, ".StatusLinee_StatoScritta"),
+      line: item.descrizioneField,
+      directions: item.direzioniField.map((direction: StatusDirezione) => ({
+        status: direction.statoField,
+        label: direction.descrizioneField,
+      })),
     };
   });
 

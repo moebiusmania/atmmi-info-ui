@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { loadingClass } from "./utils";
 import type { LineStatus } from "../types/line";
 
 const resource: string = "/api/status";
@@ -7,15 +6,15 @@ const resource: string = "/api/status";
 const lineClass = (line: string): string =>
   `badge badge-lg bg-line-${line} rounded-none border-0 w-10`;
 
-const { status, data, error } = await useFetch<Array<LineStatus>>(resource);
+const { data } = await useFetch<Array<LineStatus>>(resource);
 
 const inactive: Array<string> = ["tratta sospesa", "rallentata"];
-const isPending = status.value === "pending";
 
 const notActive = (status: string): string =>
   inactive.includes(status.toLocaleLowerCase()) ? "font-bold" : "font-normal";
 
-if (error.value) console.error("ERROR from useFetch: ", error.value);
+const isOK = (status: string): string =>
+  status.toLocaleLowerCase() === "regolare" ? "🟩" : "🟥";
 </script>
 
 <template>
@@ -24,16 +23,18 @@ if (error.value) console.error("ERROR from useFetch: ", error.value);
       <li
         v-for="(item, index) in data"
         :key="index"
-        :class="isPending ? 'my-2 animate-pulse' : 'my-2'"
+        class="my-3 flex gap-6 items-center"
       >
-        <div :class="isPending ? loadingClass() : lineClass(item.line)">
-          <span v-if="!isPending" class="text-base-100">{{ item.line }}</span>
+        <div :class="lineClass(item.line)">
+          <span class="text-base-100">{{ item.line }}</span>
         </div>
-        {{ " " }}
-        <!-- <span v-if="!isPending">{{ item.text }} |{{ " " }} {{ item.status }}{{ " " }}</span> -->
-        <span v-if="!isPending" :class="notActive(item.status)"
-          >{{ " " }} {{ item.status }}</span
-        >
+        <ul>
+          <li v-for="(direction, index) in item.directions" :key="index">
+            <span :class="notActive(direction.status)"
+              >{{ isOK(direction.status) }} {{ direction.label }}</span
+            >
+          </li>
+        </ul>
       </li>
     </ul>
   </Card>

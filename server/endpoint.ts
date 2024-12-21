@@ -1,14 +1,16 @@
 import { Agent } from "undici";
 import crypto from "node:crypto";
 
-const ENDPOINT: string = "https://www.atm.it/it/Pagine/default.aspx";
+const WEBSITE: string = "https://www.atm.it/it/Pagine/default.aspx";
+const API: string =
+  "https://giromilano.atm.it/proxy.tpportal/api/tpPortal/tpl/atm";
 
 /**
- * Explanation for this fetch configuration can be found in 
+ * Explanation for this fetch configuration can be found in
  * https://github.com/nuxt/nuxt/issues/21609
  */
 const getPage = async (): Promise<string> =>
-  $fetch(ENDPOINT, {
+  $fetch(WEBSITE, {
     mode: "cors",
     dispatcher: new Agent({
       connect: {
@@ -18,4 +20,9 @@ const getPage = async (): Promise<string> =>
     }),
   });
 
-export { ENDPOINT, getPage };
+const getApi = async (resource: string = ""): Promise<any> =>
+  $fetch(`${API}/${resource}`, {
+    mode: "cors",
+  });
+
+export { WEBSITE, API, getPage, getApi };
