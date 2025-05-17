@@ -2,7 +2,7 @@
 
 exports[`<Footer /> 1`] = `
 "<footer class="text-center p-6">
-  <p class="font-light text-sm"><span>2024</span> - Sviluppato da <a href="https://github.com/moebiusmania/atmmi-info-ui" target="_blank" class="underline" rel="noopener noreferrer"> Salvatore Laisa </a></p>
+  <p class="font-light text-sm"><span>2025</span> - Sviluppato da <a href="https://github.com/moebiusmania/atmmi-info-ui" target="_blank" class="underline" rel="noopener noreferrer"> Salvatore Laisa </a></p>
   <p class="font-light text-sm mt-3"> Progetto indipendente e non affiliato o supportato da ATM Milano S.p.A. </p>
 </footer>"
 `;
