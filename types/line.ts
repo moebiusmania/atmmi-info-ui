@@ -9,3 +9,9 @@ export interface LineStatus {
   status: string;
   directions: Array<Direction>;
 }
+
+export type ScrapedLineStatus = {
+  line: string;
+  text: string;
+  status: string;
+};

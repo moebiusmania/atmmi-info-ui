@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<StatusV1 /> > renders data correctly > with-data 1`] = `""`;
+
+exports[`<StatusV1 /> > renders loading state correctly > loading 1`] = `""`;
