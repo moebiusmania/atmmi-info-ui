@@ -25,7 +25,7 @@ if (error.value) console.log("ERROR from useFetch: ", error.value);
           target="_blank"
           rel="nofollow noopener"
           class="hover:underline hover:text-primary"
-          ><Icon name="ri:external-link-fill" /> {{ item.text }}</a
+          >🔗 {{ item.text }}</a
         >
       </li>
     </ul>

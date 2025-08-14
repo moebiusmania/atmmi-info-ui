@@ -3,7 +3,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  modules: ["nuxt-icon"],
+  // modules: [],
 
   experimental: {
     componentIslands: true,

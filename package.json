@@ -21,7 +21,6 @@
     "daisyui": "5.0.50",
     "jsdom": "26.1.0",
     "nuxt": "4.0.3",
-    "nuxt-icon": "0.6.10",
     "tailwindcss": "4.1.11",
     "undici": "7.13.0",
     "vitest": "3.2.4"
