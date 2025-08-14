@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: corporate --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "corporate";
+  default: true;
+  --color-primary: #f48325;
+}
+
+@theme {
+  --color-line-M1: #E31D1A;
+  --color-line-M2: #638B18;
+  --color-line-M3: #F6A704;
+  --color-line-M4: #1F3E6D;
+  --color-line-M5: #9778D3;
+}
+
+/* === SAFELIST (ex safelist) === */
+@source inline("bg-line-{M1,M2,M3,M4,M5}");
+@source inline("color-primary");
+@source inline("bg-primary");
