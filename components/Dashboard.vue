@@ -11,5 +11,6 @@ const itemStyle = "mb-5 break-inside-avoid";
     <div :class="itemStyle"><Traffic /></div>
     <div :class="itemStyle"><News /></div>
     <div :class="itemStyle"><StaticMap /></div>
+    <div :class="itemStyle"><Shortcut /></div>
   </main>
 </template>
