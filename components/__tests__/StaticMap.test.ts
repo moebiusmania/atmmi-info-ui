@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { expect, test, vi } from "vitest";
+import { expect, test } from "vitest";
 import StaticMap from "../StaticMap.vue";
 
 // Mock the Card component
@@ -12,6 +12,6 @@ import StaticMap from "../StaticMap.vue";
 // }));
 
 test("<StaticMap />", () => {
-  const wrapper = mount(StaticMap);
-  expect(wrapper.html()).toMatchSnapshot();
+	const wrapper = mount(StaticMap);
+	expect(wrapper.html()).toMatchSnapshot();
 });

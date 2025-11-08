@@ -4,37 +4,37 @@ import Surface from "../Surface.vue";
 
 // Mock the Card component
 vi.mock("../Card.vue", () => ({
-  default: {
-    name: "Card",
-    template: '<div class="card-mock"><slot /></div>',
-    props: ["title"],
-  },
+	default: {
+		name: "Card",
+		template: '<div class="card-mock"><slot /></div>',
+		props: ["title"],
+	},
 }));
 
 // Mock useFetch
 const mockUseFetch = vi.fn();
 vi.mock("#imports", () => ({
-  useFetch: () => mockUseFetch(),
+	useFetch: () => mockUseFetch(),
 }));
 
 describe("<Surface />", () => {
-  test("renders with data", () => {
-    mockUseFetch.mockReturnValue({
-      data: { value: ["Bus 42: deviazione", "Tram 14: interruzione"] },
-      error: { value: null },
-    });
+	test("renders with data", () => {
+		mockUseFetch.mockReturnValue({
+			data: { value: ["Bus 42: deviazione", "Tram 14: interruzione"] },
+			error: { value: null },
+		});
 
-    const wrapper = mount(Surface);
-    expect(wrapper.html()).toMatchSnapshot("with-data");
-  });
+		const wrapper = mount(Surface);
+		expect(wrapper.html()).toMatchSnapshot("with-data");
+	});
 
-  test("renders empty state", () => {
-    mockUseFetch.mockReturnValue({
-      data: { value: [] },
-      error: { value: null },
-    });
+	test("renders empty state", () => {
+		mockUseFetch.mockReturnValue({
+			data: { value: [] },
+			error: { value: null },
+		});
 
-    const wrapper = mount(Surface);
-    expect(wrapper.html()).toMatchSnapshot("empty-state");
-  });
+		const wrapper = mount(Surface);
+		expect(wrapper.html()).toMatchSnapshot("empty-state");
+	});
 });

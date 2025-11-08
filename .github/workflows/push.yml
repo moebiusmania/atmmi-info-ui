@@ -22,5 +22,8 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
+      - name: 🔍 Run lint
+        run: npm run lint
+
       - name: 📝 Run unit tests
         run: npm run test

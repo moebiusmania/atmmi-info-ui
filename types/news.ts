@@ -1,5 +1,5 @@
 export type News = {
-  url: string;
-  text: string;
-  image?: string;
+	url: string;
+	text: string;
+	image?: string;
 };

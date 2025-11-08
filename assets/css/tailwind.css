@@ -1,20 +1,20 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: corporate --default;
+	themes: corporate --default;
 }
 
 @plugin "daisyui/theme" {
-  name: "corporate";
-  default: true;
-  --color-primary: #f48325;
+	name: "corporate";
+	default: true;
+	--color-primary: #f48325;
 }
 
 @theme {
-  --color-line-M1: #E31D1A;
-  --color-line-M2: #638B18;
-  --color-line-M3: #F6A704;
-  --color-line-M4: #1F3E6D;
-  --color-line-M5: #9778D3;
+	--color-line-M1: #e31d1a;
+	--color-line-M2: #638b18;
+	--color-line-M3: #f6a704;
+	--color-line-M4: #1f3e6d;
+	--color-line-M5: #9778d3;
 }
 
 /* === SAFELIST (ex safelist) === */

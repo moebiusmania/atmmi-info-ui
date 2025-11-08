@@ -3,16 +3,16 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  // modules: [],
+	// modules: [],
 
-  experimental: {
-    componentIslands: true,
-  },
+	experimental: {
+		componentIslands: true,
+	},
 
-  compatibilityDate: "2024-10-26",
+	compatibilityDate: "2024-10-26",
 
-  css: ["~/assets/css/tailwind.css"],
-  vite: {
-    plugins: [tailwindcss()],
-  },
+	css: ["~/assets/css/tailwind.css"],
+	vite: {
+		plugins: [tailwindcss()],
+	},
 });
