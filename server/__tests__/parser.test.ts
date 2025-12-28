@@ -1,16 +1,15 @@
-import jsdom from "jsdom";
+import { Window } from "happy-dom";
 import { beforeAll, describe, expect, test } from "vitest";
 
 import { parseNews, getLine, getRows, getContent } from "../parser";
 import { loadingClass, mockLine } from "../../components/utils";
 
-const { JSDOM } = jsdom;
-
 describe("parser.ts", () => {
 	beforeAll(() => {
-		// create a fake document with jsdom
-		const dom = new JSDOM(`<!DOCTYPE html><p>Hello world</p>`);
-		global.document = dom.window.document;
+		// create a fake document with happy-dom
+		const window = new Window();
+		window.document.body.innerHTML = `<p>Hello world</p>`;
+		global.document = window.document;
 	});
 
 	test("parseNews()", async () => {

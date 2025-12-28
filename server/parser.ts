@@ -1,8 +1,6 @@
-import jsdom from "jsdom";
+import { Window } from "happy-dom";
 
 import type { News } from "~/types/news";
-
-const { JSDOM } = jsdom;
 
 /**
  * Extracts the news from the HTML page
@@ -11,7 +9,9 @@ export const parseNews = async (
 	selector: string,
 	data: string,
 ): Promise<Array<News>> => {
-	const { document } = new JSDOM(data).window;
+	const window = new Window();
+	window.document.write(data);
+	const { document } = window;
 
 	const items: Array<Element> = [...document.querySelectorAll(selector)];
 	const json: Array<News> = items.map((item: Element) => ({

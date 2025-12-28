@@ -1,15 +1,15 @@
-import jsdom from "jsdom";
+import { Window } from "happy-dom";
 
 import { getPage } from "../../endpoint";
 import type { ScrapedLineStatus } from "../../../types/line";
 import { getContent, getLine, getRows } from "../../parser";
 
-const { JSDOM } = jsdom;
-
 export default defineEventHandler(
 	async (): Promise<Array<ScrapedLineStatus>> => {
 		const data = await getPage();
-		const { document } = new JSDOM(data).window;
+		const window = new Window();
+		window.document.write(data);
+		const { document } = window;
 		const rows: Array<Element> = getRows(document);
 
 		const json: Array<ScrapedLineStatus> = rows.map((row) => {

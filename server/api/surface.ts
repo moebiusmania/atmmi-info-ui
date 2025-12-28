@@ -1,4 +1,4 @@
-import jsdom from "jsdom";
+import { Window } from "happy-dom";
 
 type AlertAPIResponse = {
 	id: number;
@@ -8,8 +8,6 @@ type AlertAPIResponse = {
 	alert_text: string;
 };
 
-const { JSDOM } = jsdom;
-
 export default defineEventHandler(async (): Promise<Array<string>> => {
 	const rnd: number = Math.floor(Math.random() * 1000);
 	const data: AlertAPIResponse = await $fetch(
@@ -18,7 +16,9 @@ export default defineEventHandler(async (): Promise<Array<string>> => {
 			mode: "cors",
 		},
 	);
-	const { document } = new JSDOM(data.alert_text).window;
+	const window = new Window();
+	window.document.body.innerHTML = data.alert_text;
+	const { document } = window;
 	const items: NodeListOf<Element> = document.querySelectorAll("p");
 	const json: Array<string> = [...items]
 		.map((e) => e.textContent?.trim() || "")

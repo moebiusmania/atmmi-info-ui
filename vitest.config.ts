@@ -12,7 +12,7 @@ export default defineConfig({
 			exclude: [...exclude, "**/__tests__/**", "**/.nuxt/**"],
 			reporter: ["html"],
 		},
-		environment: "jsdom",
+		environment: "happy-dom",
 		exclude,
 		globals: true,
 	},
