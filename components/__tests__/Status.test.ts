@@ -26,6 +26,7 @@ describe("<Status />", () => {
 		});
 
 		const wrapper = mount(Status);
+		await new Promise((r) => setTimeout(r, 0));
 		expect(wrapper.html()).toMatchSnapshot("loading");
 	});
 
@@ -42,6 +43,7 @@ describe("<Status />", () => {
 		});
 
 		const wrapper = mount(Status);
+		await new Promise((r) => setTimeout(r, 0));
 		expect(wrapper.html()).toMatchSnapshot("with-data");
 	});
 });

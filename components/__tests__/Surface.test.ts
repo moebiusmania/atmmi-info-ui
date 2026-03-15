@@ -18,23 +18,25 @@ vi.mock("#imports", () => ({
 }));
 
 describe("<Surface />", () => {
-	test("renders with data", () => {
+	test("renders with data", async () => {
 		mockUseFetch.mockReturnValue({
 			data: { value: ["Bus 42: deviazione", "Tram 14: interruzione"] },
 			error: { value: null },
 		});
 
 		const wrapper = mount(Surface);
+		await new Promise((r) => setTimeout(r, 0));
 		expect(wrapper.html()).toMatchSnapshot("with-data");
 	});
 
-	test("renders empty state", () => {
+	test("renders empty state", async () => {
 		mockUseFetch.mockReturnValue({
 			data: { value: [] },
 			error: { value: null },
 		});
 
 		const wrapper = mount(Surface);
+		await new Promise((r) => setTimeout(r, 0));
 		expect(wrapper.html()).toMatchSnapshot("empty-state");
 	});
 });
