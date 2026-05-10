@@ -13,7 +13,7 @@ Single Fresh 2 app on **Deno** (not a monorepo). Dashboard for ATM Milano transi
 | `deno task test`  | `deno test -A` (parser + utils tests)                                       |
 | `deno install`    | Populate `node_modules` for npm-specified packages (Tailwind, Preact, etc.) |
 
-CI: `deno task check` → `deno task test` (no production build in CI).
+CI: `deno install` → `deno task check` → `deno task test` (no production build in CI).
 
 ## Framework & toolchain
 
