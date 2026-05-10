@@ -8,7 +8,7 @@ A clean and modern web UI dashboard that displays some quick informations from t
 slight messy and non-responsive website_), retrieving the data through a custom REST API.
 
 **Live at:**
-[https://atmmi-info-ui-moebiusmania.vercel.app/](https://atmmi-info-ui-moebiusmania.vercel.app/)
+[https://atmmi-info-ui.moebiusmania.deno.net/](https://atmmi-info-ui.moebiusmania.deno.net/)
 
 ## Built with
 
@@ -17,6 +17,8 @@ slight messy and non-responsive website_), retrieving the data through a custom 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) v4 with Vite
 - [DaisyUI](https://daisyui.com/) — components on top of Tailwind
+
+Live version hosted on [Deno Deploy](https://deno.com/deploy).
 
 ## Backend APIs
 
