@@ -3,13 +3,13 @@ export interface Direction {
 	label: string;
 }
 
-export interface LineStatus {
+/** Metro status from giromilano JSON API (`/api/status`). */
+export interface MetroLineStatusV2 {
 	line: string;
-	text: string;
-	status: string;
-	directions: Array<Direction>;
+	directions: Direction[];
 }
 
+/** Scraped metro line row from ATM homepage (`/api/v1/status`). */
 export type ScrapedLineStatus = {
 	line: string;
 	text: string;

@@ -1,52 +1,50 @@
 # AGENTS.md — atmmi-info-ui
 
-Single Nuxt 4 app (not a monorepo). A dashboard for ATM Milano transit info.
+Single Fresh 2 app on **Deno** (not a monorepo). Dashboard for ATM Milano transit info.
 
 ## Commands
 
-| Command | Action |
-|---|---|
-| `npm run dev` | Dev server (localhost:3000) |
-| `npm run build` | Nuxt production build (`nuxt build`) |
-| `npm run generate` | Static export (`nuxt generate`) |
-| `npm run preview` | Preview built app |
-| `npm run lint` | Biome lint only |
-| `npm run format` | Biome format + write |
-| `npm run test` | Vitest + coverage (`vitest run --coverage`) |
-| `npm run test:ui` | Vitest UI + coverage |
+| Command           | Action                                                                      |
+| ----------------- | --------------------------------------------------------------------------- |
+| `deno task dev`   | Vite dev server (URL in terminal; often port 5173)                          |
+| `deno task build` | Production client + server bundle (`vite build`)                            |
+| `deno task start` | Serve `_fresh/server.js` via `deno serve`                                   |
+| `deno task check` | `deno fmt --check`, `deno lint`, `deno check` on entrypoints                |
+| `deno task test`  | `deno test -A` (parser + utils tests)                                       |
+| `deno install`    | Populate `node_modules` for npm-specified packages (Tailwind, Preact, etc.) |
 
-CI runs: `npm ci` → `npm run lint` → `npm run test` (no build step — build is Vercel's job). CI Node version: 24.13.
+CI: `deno task check` → `deno task test` (no production build in CI).
 
-`postinstall` hook runs `nuxt prepare` to generate Nuxt types. Run `npm run postinstall` manually if types are stale.
+## Framework & toolchain
 
-## Framework & Toolchain
+- **Fresh 2** (`jsr:@fresh/core`) with `main.ts` + `app.fsRoutes()`, Preact JSX,
+  `@fresh/plugin-vite` + **Vite 7**.
+- **Tailwind CSS v4** via `@tailwindcss/vite` in `vite.config.ts`. Styles: `assets/styles.css`
+  (DaisyUI corporate theme + line color tokens, same as before).
+- **Deno** fmt/lint (tabs, line width in `deno.json`). No Biome / npm scripts.
+- **`nodeModulesDir: "manual"`** — run `deno install` after clone or dependency changes.
 
-- **Nuxt 4** with server routes (auto-registered from `server/api/`), `componentIslands` experiment on, `compatibilityDate: "2024-10-26"`.
-- **Tailwind CSS v4** — no `tailwind.config.js`. Configured via `@tailwindcss/vite` plugin in `nuxt.config.ts`. CSS entry: `assets/css/tailwind.css`.
-- **Biome** handles both linting and formatting. Config quirks: tab indent, double quotes, CSS parser enables `tailwindDirectives`. Override for `*.vue`: `noUnusedImports` and `noUnusedVariables` off. `organizeImports` is on as an assist action.
-- **Vitest** with `happy-dom` environment. Coverage enabled by default (V8, HTML reporter). Setup file `vitest.setup.ts` suppresses Nuxt/Vue Suspense warnings.
-- **npm** with `save-exact=true` (all deps pinned). No runtime deps — everything is devDependencies.
-- **Node.js** 24.x required. No `.env.example` committed; `.env` in `.gitignore`. May need `NODE_TLS_REJECT_UNAUTHORIZED=0` on older Node builds.
+## Architecture
 
-## Testing Conventions
+- **Entry**: `main.ts` → static files + file routes.
+- **Layout**: `routes/_app.tsx` — `<html lang="it-IT" data-theme="corporate">`, meta, favicon.
+- **Home**: `routes/index.tsx` — server-loads dashboard data via `lib/dashboard_data.ts`, renders
+  `Header`, `Dashboard`, `Footer`.
+- **API**: `routes/api/*.tsx` — JSON handlers mirroring old Nuxt `server/api/` paths.
+- **Upstream HTTP**: `lib/atm_fetch.ts` uses
+  `Deno.createHttpClient({ tlsOptions: { insecure: true } })` for `www.atm.it` and
+  `giromilano.atm.it` (legacy TLS). Surface alerts use default `fetch` to `alert.atm.it`.
+- **HTML parsing**: `happy-dom` in `lib/parser.ts` and data modules (same approach as Nuxt server).
+- **Types**: `types/line.ts` (`ScrapedLineStatus`, `MetroLineStatusV2`), `types/news.ts`.
 
-- Tests co-located in `__tests__/` dirs alongside source (e.g., `components/__tests__/`, `server/__tests__/`).
-- Test files use `.test.ts` suffix (not `.spec.ts`).
-- Single test: `npx vitest run path/to/file.test.ts`
-- `happy-dom` is used both as the Vitest DOM environment AND as a server-side HTML parser (`server/parser.ts`).
+## TypeScript / JSX
 
-## Architecture & Quirks
+- No root `tsconfig.json` (Vite + `deno.json` own TS settings). Do not reintroduce Nuxt’s
+  `.nuxt/tsconfig` extends.
+- TSX files that render JSX start with `import "preact/jsx-runtime";` so `deno check` resolves
+  Fresh’s `jsx: "precompile"` emit cleanly.
 
-- **App entrypoint**: `app.vue` → renders `<Header />`, `<Dashboard />`, `<Footer />`.
-- **Server API routes** are Nuxt server routes in `server/api/`. Endpoints: `/api/service` (health), `/api/status` (v2 JSON via giromilano proxy), `/api/v1/status` (v1 HTML scrape), `/api/traffic`, `/api/news`, `/api/surface`.
-- **Two status APIs**: `StatusV1.vue` (HTML scrape, displayed in Dashboard) and `Status.vue` (JSON API, component exists but NOT rendered in Dashboard).
-- **SSL bypass**: `server/endpoint.ts` uses `undici` `Agent` with `rejectUnauthorized: false` + `SSL_OP_LEGACY_SERVER_CONNECT` to work around ATM's TLS incompatibility. If the upstream changes their cert, this may need updating.
-- **Dynamic cache-busting**: surface API appends a random number (`?${rnd}`) to the alert URL to avoid caching.
-- **Import style**: both `~/` path aliases and relative paths are used inconsistently. Follow the convention of the file you're editing.
-- **PascalCase** `.vue` component files.
-- **DaisyUI 5** theme set in `app.vue` via `<html data-theme="corporate">`.
-- **No Nuxt modules** are used (modules array commented out in config).
+## VS Code
 
-## VSCode
-
-Settings in `.vscode/settings.json`: tab size 2, format on save enabled.
+`.vscode/settings.json`: tab size 2, format on save. Install the **Deno** extension and enable the
+workspace if prompted.

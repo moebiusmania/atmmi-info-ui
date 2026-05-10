@@ -1,0 +1,22 @@
+import "preact/jsx-runtime";
+export function Footer() {
+	const year = new Date().getFullYear();
+	return (
+		<footer class="text-center p-6">
+			<p class="font-light text-sm">
+				<span>{year}</span> - Sviluppato da{" "}
+				<a
+					href="https://github.com/moebiusmania/atmmi-info-ui"
+					target="_blank"
+					class="underline"
+					rel="noopener noreferrer"
+				>
+					Salvatore Laisa
+				</a>
+			</p>
+			<p class="font-light text-sm mt-3">
+				Progetto indipendente e non affiliato o supportato da ATM Milano S.p.A.
+			</p>
+		</footer>
+	);
+}

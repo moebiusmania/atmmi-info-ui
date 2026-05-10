@@ -1,0 +1,51 @@
+import { Window } from "happy-dom";
+
+import type { News } from "@/types/news.ts";
+
+/**
+ * Extracts the news from the HTML page
+ */
+export function parseNews(selector: string, data: string): Array<News> {
+	const window = new Window();
+	window.document.write(data);
+	const { document } = window;
+
+	const items = [...document.querySelectorAll(selector)] as unknown as Array<Element>;
+	return items.map((item: Element) => ({
+		url: item.getAttribute("href") || "",
+		text: item.textContent?.trim() || "",
+	}));
+}
+
+/**
+ * Based on the HTML id of the element, it extract the label of the metro line (M1, M2, etc..)
+ */
+export function getLine(row: Element, selector = "img"): string {
+	const element = row.querySelector(selector);
+	return element?.getAttribute("title") || "";
+}
+
+/**
+ * Extracts the content from the HTML table cells
+ */
+export function getContent(row: Element, selector: string): string {
+	const text = row.querySelector(selector)?.textContent || "";
+	return text.trim();
+}
+
+/**
+ * Find the HTML table rows of the metro lines status and filters out only the rows
+ * with actual data
+ */
+export function getRows(document: Document): Array<Element> {
+	const trs: NodeListOf<Element> = document.querySelectorAll("#StatusLinee tr");
+
+	return [...trs].filter((element) => {
+		const textLength = element.textContent?.trim().length ?? 0;
+		return (
+			textLength > 0 &&
+			element.querySelectorAll(".StatusLinee_mex").length === 0 &&
+			!element.id
+		);
+	});
+}
