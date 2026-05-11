@@ -9,7 +9,7 @@ export default define.page(async () => {
 	const data = await loadDashboardData();
 
 	return (
-		<div class="bg-gray-50 min-h-screen">
+		<div class="page">
 			<Header />
 			<Dashboard data={data} />
 			<Footer />

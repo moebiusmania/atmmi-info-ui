@@ -8,9 +8,9 @@ export interface CardProps {
 
 export function Card(props: CardProps) {
 	return (
-		<article class="card bg-white shadow-lg">
-			<div class="card-body">
-				<h2 class="card-title">{props.title}</h2>
+		<article class="card">
+			<div class="card__body">
+				<h2 class="card__title">{props.title}</h2>
 				{props.children}
 			</div>
 		</article>

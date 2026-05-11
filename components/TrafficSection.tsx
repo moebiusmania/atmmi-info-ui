@@ -15,18 +15,24 @@ export function TrafficSection(props: TrafficSectionProps) {
 
 	return (
 		<Card title="Cambiamenti">
-			<ul>
+			<ul class="link-list">
 				{items.length === 0 && !props.error
-					? <li class="my-2 text-gray-500">Nessun dato.</li>
+					? <li class="link-list__item text-muted">Nessun dato.</li>
 					: null}
-				{props.error ? <li class="my-2 text-error">Impossibile caricare i cambiamenti.</li> : null}
+				{props.error
+					? (
+						<li class="link-list__item message message--error">
+							Impossibile caricare i cambiamenti.
+						</li>
+					)
+					: null}
 				{items.map((item, index) => (
-					<li key={index} class="my-2 align-middle">
+					<li key={index} class="link-list__item">
 						<a
 							href={item.url}
 							target="_blank"
 							rel="nofollow noopener"
-							class="hover:underline hover:text-primary"
+							class="link-list__link"
 						>
 							🔗 {item.text}
 						</a>

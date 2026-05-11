@@ -15,18 +15,20 @@ export function NewsSection(props: NewsSectionProps) {
 
 	return (
 		<Card title="ATM informa">
-			<ul class="list-none">
+			<ul class="link-list">
 				{items.length === 0 && !props.error
-					? <li class="my-2 text-gray-500">Nessuna news.</li>
+					? <li class="link-list__item text-muted">Nessuna news.</li>
 					: null}
-				{props.error ? <li class="my-2 text-error">Impossibile caricare le news.</li> : null}
+				{props.error
+					? <li class="link-list__item message message--error">Impossibile caricare le news.</li>
+					: null}
 				{items.map((item, index) => (
-					<li key={index} class="my-2 align-middle">
+					<li key={index} class="link-list__item">
 						<a
 							href={item.url}
 							target="_blank"
 							rel="nofollow noopener"
-							class="hover:underline hover:text-primary"
+							class="link-list__link"
 						>
 							🔗 {item.text}
 						</a>

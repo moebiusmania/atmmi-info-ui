@@ -15,8 +15,7 @@ slight messy and non-responsive website_), retrieving the data through a custom 
 - [Deno](https://deno.com/) v2.x
 - [Fresh](https://fresh.deno.dev/) — full-stack framework with Preact and file-system routing
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) v4 with Vite
-- [DaisyUI](https://daisyui.com/) — components on top of Tailwind
+- Vanilla CSS (`assets/styles.css`) — variables, nesting, no utility framework
 
 Live version hosted on [Deno Deploy](https://deno.com/deploy).
 

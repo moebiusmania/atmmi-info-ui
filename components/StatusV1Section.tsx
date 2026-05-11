@@ -4,12 +4,14 @@ import type { ScrapedLineStatus } from "@/types/line.ts";
 
 const inactive = ["tratta sospesa", "rallentata"];
 
-function lineClass(line: string): string {
-	return `badge badge-lg bg-line-${line} rounded-none border-0 w-10`;
+function lineBadgeClass(line: string): string {
+	return `line-badge line-badge--${line}`;
 }
 
-function notActive(status: string): string {
-	return inactive.includes(status.toLocaleLowerCase()) ? "font-bold" : "font-normal";
+function statusTextClass(status: string): string {
+	return inactive.includes(status.toLocaleLowerCase())
+		? "status-text status-text--alert"
+		: "status-text";
 }
 
 export interface StatusV1SectionProps {
@@ -25,14 +27,20 @@ export function StatusV1Section(props: StatusV1SectionProps) {
 
 	return (
 		<Card title="Status linee MM">
-			<ul>
-				{props.error ? <li class="my-2 text-error">Impossibile caricare lo status.</li> : null}
+			<ul class="status-list">
+				{props.error
+					? (
+						<li class="status-list__item message message--error">
+							Impossibile caricare lo status.
+						</li>
+					)
+					: null}
 				{items.map((item, index) => (
-					<li key={index} class="my-2">
-						<div class={lineClass(item.line)}>
-							<span class="text-base-100">{item.line}</span>
-						</div>{" "}
-						<span class={notActive(item.status)}>{item.status}</span>
+					<li key={index} class="status-list__item">
+						<div class={lineBadgeClass(item.line)}>
+							<span>{item.line}</span>
+						</div>
+						<span class={statusTextClass(item.status)}>{item.status}</span>
 					</li>
 				))}
 			</ul>

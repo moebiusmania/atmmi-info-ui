@@ -14,9 +14,13 @@ export function SurfaceSection(props: SurfaceSectionProps) {
 
 	return (
 		<Card title="Linee di superficie">
-			{props.error ? <p class="text-error">Impossibile caricare gli avvisi.</p> : null}
-			{!props.error && data.length > 0 ? data.map((item, i) => <p key={i}>{item}</p>) : null}
-			{!props.error && data.length === 0 ? <p>☀️ Nessun avviso disponibile</p> : null}
+			<div class="surface-body">
+				{props.error
+					? <p class="message message--error">Impossibile caricare gli avvisi.</p>
+					: null}
+				{!props.error && data.length > 0 ? data.map((item, i) => <p key={i}>{item}</p>) : null}
+				{!props.error && data.length === 0 ? <p>☀️ Nessun avviso disponibile</p> : null}
+			</div>
 		</Card>
 	);
 }

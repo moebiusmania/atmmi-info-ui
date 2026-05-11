@@ -3,7 +3,7 @@ import { define } from "../utils.ts";
 
 export default define.page(function App({ Component }) {
 	return (
-		<html lang="it-IT" data-theme="corporate">
+		<html lang="it-IT">
 			<head>
 				<meta charset="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />

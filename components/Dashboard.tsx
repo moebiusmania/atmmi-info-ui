@@ -6,8 +6,6 @@ import { StatusV1Section } from "@/components/StatusV1Section.tsx";
 import { SurfaceSection } from "@/components/SurfaceSection.tsx";
 import { TrafficSection } from "@/components/TrafficSection.tsx";
 
-const itemStyle = "mb-5 break-inside-avoid";
-
 export interface DashboardProps {
 	data: DashboardData;
 }
@@ -15,20 +13,20 @@ export interface DashboardProps {
 export function Dashboard(props: DashboardProps) {
 	const d = props.data;
 	return (
-		<main class="container mx-auto my-4 px-4 py-2 columns-1 md:columns-2 xl:columns-3 gap-5">
-			<div class={itemStyle}>
+		<main class="dashboard">
+			<div class="dashboard__item">
 				<StatusV1Section items={d.statusV1} error={d.statusV1Error} />
 			</div>
-			<div class={itemStyle}>
+			<div class="dashboard__item">
 				<SurfaceSection items={d.surface} error={d.surfaceError} />
 			</div>
-			<div class={itemStyle}>
+			<div class="dashboard__item">
 				<TrafficSection items={d.traffic} error={d.trafficError} />
 			</div>
-			<div class={itemStyle}>
+			<div class="dashboard__item">
 				<NewsSection items={d.news} error={d.newsError} />
 			</div>
-			<div class={itemStyle}>
+			<div class="dashboard__item">
 				<StaticMapSection />
 			</div>
 		</main>
