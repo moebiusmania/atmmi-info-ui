@@ -1,5 +1,5 @@
 import { Window } from "happy-dom";
-import { assertEquals } from "jsr:@std/assert@1";
+import { assertEquals } from "@/lib/__tests__/assert.ts";
 import { loadingClass, mockLine, mockNews } from "@/lib/dashboard_utils.ts";
 import { getContent, getLine, getRows, parseNews } from "@/lib/parser.ts";
 
