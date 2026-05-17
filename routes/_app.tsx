@@ -17,6 +17,11 @@ export default define.page(function App({ Component }) {
 				<title>🚌 ATM Milano Info Dashboard</title>
 			</head>
 			<body>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `(function(){var s=localStorage.getItem('atmmi-theme');if(s==='dark'||s==='light'){document.documentElement.dataset.theme=s;}else if(matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';}})();`,
+					}}
+				/>
 				<Component />
 			</body>
 		</html>
