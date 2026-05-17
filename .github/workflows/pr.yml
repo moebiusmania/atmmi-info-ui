@@ -1,0 +1,27 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Install JSR and npm dependencies
+        run: deno install
+
+      - name: Format, lint, and typecheck
+        run: deno task check
+
+      - name: Unit tests
+        run: deno task test
+
+      - name: Build
+        run: deno task build
