@@ -1,3 +1,4 @@
+// deno-lint-ignore-file react-no-danger
 import "preact/jsx-runtime";
 import { define } from "../utils.ts";
 
@@ -19,7 +20,8 @@ export default define.page(function App({ Component }) {
 			<body>
 				<script
 					dangerouslySetInnerHTML={{
-						__html: `(function(){var s=localStorage.getItem('atmmi-theme');if(s==='dark'||s==='light'){document.documentElement.dataset.theme=s;}else if(matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';}})();`,
+						__html:
+							`(function(){var s=localStorage.getItem('atmmi-theme');if(s==='dark'||s==='light'){document.documentElement.dataset.theme=s;}else if(matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';}})();`,
 					}}
 				/>
 				<Component />
