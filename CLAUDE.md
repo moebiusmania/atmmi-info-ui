@@ -66,5 +66,9 @@ op/resource sanitizers for happy-dom.
 - Styling is vanilla CSS in `assets/styles.css` (imported from `client.ts`): design tokens as
   `:root` custom properties, dark theme overrides under `html[data-theme="dark"]`, CSS nesting. No
   Tailwind/utility framework.
+- Dashboard layout is a CSS grid with named areas per breakpoint (`.dashboard__grid`, 1/2/3
+  columns); each `Card` gets `card--<id>` for its area. Load animations are staggered through the
+  `--i` (card/tile index, set by `Card`'s `index` prop) and `--j` (row index) custom properties; a
+  `prefers-reduced-motion` block at the end of `styles.css` disables all motion.
 - No root `tsconfig.json`; TS settings live in `deno.json`. Don't add one.
 - Shared types: `types/line.ts` (`ScrapedLineStatus`, `MetroLineStatusV2`), `types/news.ts`.

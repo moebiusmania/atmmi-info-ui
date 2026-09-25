@@ -22,5 +22,6 @@ export async function getSurfaceAlerts(): Promise<Array<string>> {
 	const items = [...document.querySelectorAll("p")];
 	return items
 		.map((e) => e.textContent?.trim() || "")
-		.filter((e) => e.length > 0);
+		// The alert HTML uses "---" paragraphs as visual separators.
+		.filter((e) => e.length > 0 && !/^-+$/.test(e));
 }

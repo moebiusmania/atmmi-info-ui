@@ -28,7 +28,7 @@ const EAQI_BANDS: Record<Pollutant, [number, number, number, number, number]> = 
 	o3: [60, 100, 120, 160, 180],
 };
 
-const LEVELS: Array<AirQualityLevel> = [
+export const AIR_QUALITY_LEVELS: Array<AirQualityLevel> = [
 	"good",
 	"fair",
 	"moderate",
@@ -46,7 +46,7 @@ export type ArpaRow = {
 
 export function aqiLevel(pollutant: Pollutant, value: number): AirQualityLevel {
 	const index = EAQI_BANDS[pollutant].findIndex((max) => value <= max);
-	return LEVELS[index === -1 ? LEVELS.length - 1 : index];
+	return AIR_QUALITY_LEVELS[index === -1 ? AIR_QUALITY_LEVELS.length - 1 : index];
 }
 
 /**

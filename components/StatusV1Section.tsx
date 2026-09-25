@@ -1,22 +1,21 @@
 import "preact/jsx-runtime";
-import { Card } from "@/components/Card.tsx";
+import { Card, ErrorMessage, LiveBadge } from "@/components/Card.tsx";
 import type { ScrapedLineStatus } from "@/types/line.ts";
 
-const inactive = ["tratta sospesa", "rallentata"];
+export type Tone = "ok" | "warn" | "alert";
 
-function lineBadgeClass(line: string): string {
-	return `line-badge line-badge--${line}`;
-}
+const ALERT_STATUSES = ["tratta sospesa", "rallentata"];
 
-function statusTextClass(status: string): string {
-	return inactive.includes(status.toLocaleLowerCase())
-		? "status-text status-text--alert"
-		: "status-text";
+export function lineTone(status: string): Tone {
+	const s = status.trim().toLocaleLowerCase();
+	if (s === "regolare") return "ok";
+	return ALERT_STATUSES.some((alert) => s.includes(alert)) ? "alert" : "warn";
 }
 
 export interface StatusV1SectionProps {
 	items: Array<ScrapedLineStatus> | null;
 	error: string | null;
+	index: number;
 }
 
 export function StatusV1Section(props: StatusV1SectionProps) {
@@ -26,24 +25,36 @@ export function StatusV1Section(props: StatusV1SectionProps) {
 	const items = props.items ?? [];
 
 	return (
-		<Card title="Status linee MM">
-			<ul class="status-list">
-				{props.error
-					? (
-						<li class="status-list__item message message--error">
-							Impossibile caricare lo status.
-						</li>
-					)
-					: null}
-				{items.map((item, index) => (
-					<li key={index} class="status-list__item">
-						<div class={lineBadgeClass(item.line)}>
-							<span>{item.line}</span>
-						</div>
-						<span class={statusTextClass(item.status)}>{item.status}</span>
-					</li>
-				))}
-			</ul>
+		<Card
+			id="metro"
+			title="Linee metropolitana"
+			icon="🚇"
+			index={props.index}
+			badge={<LiveBadge />}
+		>
+			{props.error
+				? <ErrorMessage>Impossibile caricare lo status.</ErrorMessage>
+				: (
+					<ul class="metro-list">
+						{items.map((item, i) => {
+							const tone = lineTone(item.status);
+							return (
+								<li
+									key={item.line}
+									class={`metro-row metro-row--${tone}`}
+									style={`--j: ${i}; --line: var(--color-line-${item.line.toLowerCase()}, var(--color-primary))`}
+								>
+									<span class="line-badge">{item.line}</span>
+									<span class="metro-row__track" aria-hidden="true" />
+									<span class={`status-pill status-pill--${tone}`}>
+										<span class="status-pill__dot" aria-hidden="true" />
+										{item.status}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				)}
 		</Card>
 	);
 }
