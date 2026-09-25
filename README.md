@@ -53,8 +53,7 @@ Start the development server:
 deno task dev
 ```
 
-Open the URL printed in the terminal (Vite defaults to `http://localhost:5173` unless configured
-otherwise).
+Open [http://localhost:3000](http://localhost:3000) (port set in `vite.config.ts`).
 
 ## Development
 

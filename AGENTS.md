@@ -6,14 +6,15 @@ Single Fresh 2 app on **Deno** (not a monorepo). Dashboard for ATM Milano transi
 
 | Command           | Action                                                                          |
 | ----------------- | ------------------------------------------------------------------------------- |
-| `deno task dev`   | Vite dev server (URL in terminal; often port 5173)                              |
+| `deno task dev`   | Vite dev server (http://localhost:3000, set in `vite.config.ts`)                |
 | `deno task build` | Production client + server bundle (`vite build`)                                |
 | `deno task start` | Serve `_fresh/server.js` via `deno serve`                                       |
 | `deno task check` | `deno fmt --check`, `deno lint`, `deno check` on entrypoints                    |
 | `deno task test`  | `deno test -A` (parser + utils tests)                                           |
 | `deno install`    | Populate `node_modules` for npm-specified packages (Preact, Vite plugins, etc.) |
 
-CI: `deno install` → `deno task check` → `deno task test` (no production build in CI).
+CI: push to `main` runs `deno install` → `deno task check` → `deno task test`; pull requests also
+run `deno task build`.
 
 ## Framework & toolchain
 
