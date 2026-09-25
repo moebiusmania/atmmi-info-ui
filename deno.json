@@ -3,6 +3,7 @@
 	"tasks": {
 		"check": "deno fmt --check . && deno lint . && deno check main.ts client.ts vite.config.ts vite-env.d.ts utils.ts routes/**/*.tsx components/**/*.tsx lib/**/*.ts types/**/*.ts",
 		"dev": "vite",
+		"dev:host": "vite --host",
 		"build": "vite build",
 		"start": "deno serve -A _fresh/server.js",
 		"test": "deno test -A",

@@ -4,14 +4,15 @@ Single Fresh 2 app on **Deno** (not a monorepo). Dashboard for ATM Milano transi
 
 ## Commands
 
-| Command           | Action                                                                          |
-| ----------------- | ------------------------------------------------------------------------------- |
-| `deno task dev`   | Vite dev server (http://localhost:3000, set in `vite.config.ts`)                |
-| `deno task build` | Production client + server bundle (`vite build`)                                |
-| `deno task start` | Serve `_fresh/server.js` via `deno serve`                                       |
-| `deno task check` | `deno fmt --check`, `deno lint`, `deno check` on entrypoints                    |
-| `deno task test`  | `deno test -A` (parser + utils tests)                                           |
-| `deno install`    | Populate `node_modules` for npm-specified packages (Preact, Vite plugins, etc.) |
+| Command              | Action                                                                          |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `deno task dev`      | Vite dev server (http://localhost:3000, set in `vite.config.ts`)                |
+| `deno task dev:host` | Same as `dev`, also listening on the network (`vite --host`)                    |
+| `deno task build`    | Production client + server bundle (`vite build`)                                |
+| `deno task start`    | Serve `_fresh/server.js` via `deno serve`                                       |
+| `deno task check`    | `deno fmt --check`, `deno lint`, `deno check` on entrypoints                    |
+| `deno task test`     | `deno test -A` (parser + utils tests)                                           |
+| `deno install`       | Populate `node_modules` for npm-specified packages (Preact, Vite plugins, etc.) |
 
 CI: push to `main` runs `deno install` → `deno task check` → `deno task test`; pull requests also
 run `deno task build`.
@@ -34,7 +35,8 @@ run `deno task build`.
 - **API**: `routes/api/*.tsx` — JSON handlers mirroring old Nuxt `server/api/` paths.
 - **Upstream HTTP**: `lib/atm_fetch.ts` uses
   `Deno.createHttpClient({ tlsOptions: { insecure: true } })` for `www.atm.it` and
-  `giromilano.atm.it` (legacy TLS). Surface alerts use default `fetch` to `alert.atm.it`.
+  `giromilano.atm.it` (legacy TLS). Surface alerts (`alert.atm.it`), weather (Open-Meteo) and air
+  quality (ARPA Lombardia Socrata API) use default `fetch`.
 - **HTML parsing**: `happy-dom` in `lib/parser.ts` and data modules (same approach as Nuxt server).
 - **Types**: `types/line.ts` (`ScrapedLineStatus`, `MetroLineStatusV2`), `types/news.ts`.
 

@@ -15,6 +15,14 @@
 	--color-line-m4: #1f3e6d;
 	--color-line-m5: #9778d3;
 
+	/* European Air Quality Index level colors (EEA) */
+	--color-aqi-good: #50f0e6;
+	--color-aqi-fair: #50ccaa;
+	--color-aqi-moderate: #f0e641;
+	--color-aqi-poor: #ff5050;
+	--color-aqi-very-poor: #960032;
+	--color-aqi-extremely-poor: #7d2181;
+
 	--radius-card: 8px;
 	--shadow-card: 0 4px 6px rgb(0 0 0 / 0.1);
 	--shadow-header: 0 2px 8px rgb(0 0 0 / 0.12);
@@ -266,6 +274,128 @@ img {
 		margin-top: 0.5rem;
 		border: var(--map-border-width) solid var(--color-primary);
 		border-radius: 4px;
+	}
+}
+
+.weather {
+	& p {
+		margin: 0;
+	}
+
+	& .weather__now {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	& .weather__icon {
+		font-size: 2.5rem;
+		line-height: 1;
+	}
+
+	& .weather__temp {
+		font-size: 2.25rem;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	& .weather__label {
+		font-weight: 600;
+	}
+
+	& .weather__meta {
+		font-size: 0.875rem;
+	}
+
+	& .weather__hours {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 0.25rem;
+		margin: 1rem 0 0;
+		padding: 0.75rem 0 0;
+		border-top: 1px solid rgb(128 128 128 / 0.2);
+	}
+
+	& .weather__hour {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.125rem;
+		font-size: 0.875rem;
+	}
+
+	& .weather__rain {
+		font-size: 0.75rem;
+		min-height: 1.125rem;
+	}
+}
+
+.air-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	& .air-list__item {
+		display: grid;
+		grid-template-columns: auto 3.5rem 1fr auto;
+		align-items: center;
+		gap: 0.75rem;
+		margin-block: 0.5rem;
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	& .air-list__name {
+		font-weight: 700;
+	}
+
+	& .air-list__value {
+		font-variant-numeric: tabular-nums;
+	}
+
+	& .air-list__level {
+		font-size: 0.875rem;
+		text-align: right;
+	}
+}
+
+.aqi-dot {
+	display: inline-block;
+	width: 0.875rem;
+	height: 0.875rem;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15);
+
+	&.aqi-dot--good {
+		background: var(--color-aqi-good);
+	}
+	&.aqi-dot--fair {
+		background: var(--color-aqi-fair);
+	}
+	&.aqi-dot--moderate {
+		background: var(--color-aqi-moderate);
+	}
+	&.aqi-dot--poor {
+		background: var(--color-aqi-poor);
+	}
+	&.aqi-dot--very-poor {
+		background: var(--color-aqi-very-poor);
+	}
+	&.aqi-dot--extremely-poor {
+		background: var(--color-aqi-extremely-poor);
+	}
+}
+
+.card__source {
+	margin: 1rem 0 0;
+	font-size: 0.75rem;
+
+	& a:hover {
+		color: var(--color-primary);
 	}
 }
 

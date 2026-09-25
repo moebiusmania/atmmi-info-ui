@@ -31,6 +31,8 @@ APIs live under `/api/` (see `routes/api/`).
 | `/api/traffic`   | planned traffic updates                  |
 | `/api/news`      | ATM news room                            |
 | `/api/surface`   | surface line alerts                      |
+| `/api/weather`   | Milan weather (Open-Meteo)               |
+| `/api/air`       | Milan air quality (ARPA Lombardia)       |
 
 ## Install & run
 
@@ -53,7 +55,8 @@ Start the development server:
 deno task dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) (port set in `vite.config.ts`).
+Open [http://localhost:3000](http://localhost:3000) (port set in `vite.config.ts`). Use
+`deno task dev:host` to also expose the dev server on your local network.
 
 ## Development
 

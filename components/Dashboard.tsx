@@ -1,10 +1,12 @@
 import "preact/jsx-runtime";
 import type { DashboardData } from "@/lib/dashboard_data.ts";
+import { AirQualitySection } from "@/components/AirQualitySection.tsx";
 import { NewsSection } from "@/components/NewsSection.tsx";
 import { StaticMapSection } from "@/components/StaticMapSection.tsx";
 import { StatusV1Section } from "@/components/StatusV1Section.tsx";
 import { SurfaceSection } from "@/components/SurfaceSection.tsx";
 import { TrafficSection } from "@/components/TrafficSection.tsx";
+import { WeatherSection } from "@/components/WeatherSection.tsx";
 
 export interface DashboardProps {
 	data: DashboardData;
@@ -25,6 +27,12 @@ export function Dashboard(props: DashboardProps) {
 			</div>
 			<div class="dashboard__item">
 				<NewsSection items={d.news} error={d.newsError} />
+			</div>
+			<div class="dashboard__item">
+				<WeatherSection weather={d.weather} error={d.weatherError} />
+			</div>
+			<div class="dashboard__item">
+				<AirQualitySection items={d.air} error={d.airError} />
 			</div>
 			<div class="dashboard__item">
 				<StaticMapSection />

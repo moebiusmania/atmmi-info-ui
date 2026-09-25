@@ -12,6 +12,7 @@ copy is Italian (`<html lang="it-IT">`).
 ```sh
 deno install          # required after clone / dependency changes (nodeModulesDir: "manual")
 deno task dev         # Vite dev server on http://localhost:3000 (set in vite.config.ts)
+deno task dev:host    # same, also exposed on the local network (vite --host)
 deno task build       # production bundle into _fresh/
 deno task start       # serve _fresh/server.js
 deno task check       # deno fmt --check . && deno lint . && deno check <entrypoints>
@@ -44,7 +45,9 @@ dashboard; the dashboard uses the scraped `status_v1.ts`.
 **Upstream HTTP.** `lib/atm_fetch.ts` exposes `getPage()` (ATM homepage HTML) and `getApi(resource)`
 (giromilano JSON). Both use a `Deno.createHttpClient({ tlsOptions: { insecure: true } })` client
 because of legacy upstream certificates — keep this permissive client scoped to these hosts only.
-`surface.ts` calls `alert.atm.it` with plain `fetch`.
+`surface.ts` (`alert.atm.it`), `weather.ts` (Open-Meteo, no key) and `air.ts` (ARPA Lombardia via
+the dati.lombardia.it Socrata API) use plain `fetch`. `air.ts` hardcodes the Milan ARPA sensor IDs
+and averages them per pollutant; NO₂/O₃ are hourly, PM10/PM2.5 are previous-day daily averages.
 
 **HTML scraping.** Upstream HTML is parsed server-side with `happy-dom` (`new Window()`, then
 `document.write(html)` or `body.innerHTML = ...`). Selector helpers live in `lib/parser.ts`; they
