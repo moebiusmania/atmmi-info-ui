@@ -53,6 +53,12 @@ and averages them per pollutant; NO₂/O₃ are hourly, PM10/PM2.5 are previous-
 `document.write(html)` or `body.innerHTML = ...`). Selector helpers live in `lib/parser.ts`; they
 depend on ATM's markup (e.g. `.StatusLinee_StatoScritta`), so upstream site changes break them.
 
+**PWA & static files.** `static/` is served at the site root: `manifest.webmanifest`, `sw.js`
+(network-first for pages with offline fallback, cache-first for `/assets/` and icons) and the icons.
+`routes/_app.tsx` registers the service worker only when `import.meta.env.PROD`, so it never runs
+under `deno task dev`. The PNG icons are rendered from `favicon.svg`; the header uses `logo.svg`
+(same tile without the orange frame) — regenerate the PNGs if you change either.
+
 **Tests.** `lib/__tests__/` uses a local `assert.ts` instead of `jsr:@std/assert` (so tests run
 offline) — import assertions from there. DOM tests use a `domTest` helper that disables Deno's
 op/resource sanitizers for happy-dom.

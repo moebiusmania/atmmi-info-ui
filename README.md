@@ -34,6 +34,20 @@ APIs live under `/api/` (see `routes/api/`).
 | `/api/weather`   | Milan weather (Open-Meteo)               |
 | `/api/air`       | Milan air quality (ARPA Lombardia)       |
 
+## Data sources
+
+| **Data**                                         | **Source**                                                                                                                                                                      |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Metro status, traffic changes, news              | scraped from the [ATM homepage](https://www.atm.it/it/Pagine/default.aspx) and [GiroMilano](https://giromilano.atm.it/) API                                                     |
+| Surface line alerts                              | [alert.atm.it](https://alert.atm.it/it)                                                                                                                                         |
+| Weather (current, today's min/max, next 6 hours) | [Open-Meteo](https://open-meteo.com/) forecast API — free, no API key, data under [CC BY 4.0](https://open-meteo.com/en/license)                                                |
+| Air quality (PM10, PM2.5, NO₂, O₃)               | [ARPA Lombardia](https://www.arpalombardia.it/temi-ambientali/aria/) measurements via [Open Data Lombardia](https://www.dati.lombardia.it/Ambiente/Dati-sensori-aria/nicp-bhqi) |
+
+Air quality values are the average of the ARPA monitoring stations in Milan (via Senato, Verziere,
+Pascal Città Studi, via Liguria, via Marche). NO₂ and O₃ are hourly values; PM10 and PM2.5 are
+published as daily averages for the previous day. Levels follow the
+[European Air Quality Index](https://airindex.eea.europa.eu/AQI/index.html) bands.
+
 ## Install & run
 
 Clone the repo:
@@ -70,6 +84,10 @@ Build for production:
 ```
 deno task build
 ```
+
+The app is an installable PWA (`static/manifest.webmanifest`, `static/sw.js`). The service worker is
+registered only in production builds and needs a secure context (HTTPS or `localhost`). Icons in
+`static/` are rendered from `static/favicon.svg` / `static/logo.svg`.
 
 Serve the production build:
 

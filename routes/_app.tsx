@@ -10,12 +10,14 @@ export default define.page(function App({ Component }) {
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 				<meta name="description" content="ATM Milano info & status dashboard webapp." />
 				<meta name="author" content="Salvatore Laisa" />
-				<link
-					rel="icon"
-					href="https://www.atm.it/_layouts/atm/images/favicon.ico"
-					type="image/x-icon"
-				/>
-				<title>🚌 ATM Milano Info Dashboard</title>
+				<meta name="theme-color" content="#f58220" />
+				<meta name="apple-mobile-web-app-title" content="ATM Info" />
+				<meta name="mobile-web-app-capable" content="yes" />
+				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+				<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+				<link rel="manifest" href="/manifest.webmanifest" />
+				<title>ATM Milano Info Dashboard</title>
 			</head>
 			<body>
 				<script
@@ -25,6 +27,19 @@ export default define.page(function App({ Component }) {
 					}}
 				/>
 				<Component />
+				{
+					// Registered only in production builds: in dev its cache would interfere with Vite HMR.
+					import.meta.env.PROD
+						? (
+							<script
+								dangerouslySetInnerHTML={{
+									__html:
+										`if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('/sw.js');});}`,
+								}}
+							/>
+						)
+						: null
+				}
 			</body>
 		</html>
 	);

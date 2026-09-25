@@ -226,16 +226,12 @@ img {
 	animation: slide-in 0.5s var(--ease-out) backwards;
 
 	& .brand__mark {
-		display: grid;
-		place-items: center;
+		display: block;
 		width: 2.5rem;
 		height: 2.5rem;
 		flex-shrink: 0;
-		border-radius: 10px;
-		background: #fff;
-		color: var(--color-primary);
-		font-size: 1.5rem;
-		font-weight: 900;
+		/* matches the rx="24" corners of static/logo.svg */
+		border-radius: 24%;
 		box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
 		transition: transform 0.4s var(--ease-bounce);
 	}
