@@ -10,15 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: denoland/setup-deno@v2
+      - uses: actions/setup-go@v5
         with:
-          deno-version: v2.x
+          go-version-file: go.mod
 
-      - name: Install JSR and npm dependencies
-        run: deno install
-
-      - name: Format, lint, and typecheck
-        run: deno task check
+      - name: Format and vet
+        run: |
+          test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
+          go vet ./...
 
       - name: Unit tests
-        run: deno task test
+        run: go test ./...

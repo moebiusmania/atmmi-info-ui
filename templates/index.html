@@ -1,0 +1,287 @@
+{{/*
+	Dashboard page. Whitespace follows JSX rules (see jsxWhitespace in internal/web/render.go):
+	lines are trimmed and joined with a space only between two runs of text, so write {{" "}} where
+	a space is needed next to a tag.
+*/}}
+<!DOCTYPE html>
+<html lang="it-IT">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="ATM Milano info &amp; status dashboard webapp."/>
+		<meta name="author" content="Salvatore Laisa"/>
+		<meta name="theme-color" content="#f58220"/>
+		<meta name="apple-mobile-web-app-title" content="ATM Info"/>
+		<meta name="mobile-web-app-capable" content="yes"/>
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+		<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png"/>
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+		<link rel="manifest" href="/manifest.webmanifest"/>
+		<title>ATM Milano Info Dashboard</title>
+		<link rel="stylesheet" href="{{.Stylesheet}}"/>
+	</head>
+	<body>
+		<script>(function(){var s=localStorage.getItem('atmmi-theme');if(s==='dark'||s==='light'){document.documentElement.dataset.theme=s;}else if(matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';}})();</script>
+		<div class="page">
+			{{template "header" .}}
+			<main class="dashboard">
+				{{template "overview" .}}
+				<div class="dashboard__grid">
+					{{template "metro" .}}
+					{{template "surface" .}}
+					{{template "weather" .}}
+					{{template "air" .}}
+					{{template "card_open" .TrafficCard}}
+						{{template "link_list" .Traffic}}
+					{{template "card_close"}}
+					{{template "card_open" .NewsCard}}
+						{{template "link_list" .News}}
+					{{template "card_close"}}
+					{{template "map" .}}
+				</div>
+			</main>
+			{{template "footer" .}}
+		</div>
+		{{if .RegisterSW}}
+			<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('/sw.js');});}</script>
+		{{end}}
+	</body>
+</html>
+
+{{define "header"}}
+	<header class="site-header">
+		<div class="site-header__inner">
+			<a href="/" class="brand" data-current="true" aria-current="page">
+				<img class="brand__mark" src="{{.LogoSrc}}" alt="" width="40" height="40"/>
+				<div class="brand__text">
+					<h1 class="brand__title">ATM Milano Info</h1>
+					<span class="brand__subtitle">Dashboard mobilità</span>
+				</div>
+			</a>
+			{{/* Theme switcher: the initial theme is applied by the inline script at the top of <body>. */}}
+			<button type="button" class="theme-switcher" aria-label="Switch to dark mode" title="Switch to dark mode">🌙</button>
+			<script>(function(){var button=document.currentScript.previousElementSibling,root=document.documentElement;function initialTheme(){var stored=localStorage.getItem('atmmi-theme');if(stored==='dark'||stored==='light')return stored;return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}function apply(theme){var label=theme==='light'?'Switch to dark mode':'Switch to light mode';root.dataset.theme=theme;button.setAttribute('aria-label',label);button.title=label;button.textContent=theme==='light'?'🌙':'☀️';}var theme=initialTheme();apply(theme);button.addEventListener('click',function(){theme=theme==='light'?'dark':'light';apply(theme);localStorage.setItem('atmmi-theme',theme);});})();</script>
+		</div>
+	</header>
+{{end}}
+
+{{define "overview"}}
+	<section class="overview" aria-label="Panoramica">
+		<div class="overview__bar">
+			<div>
+				<p class="overview__date">{{.Date}}</p>
+				<p class="overview__updated">
+					<span class="live__dot" aria-hidden="true"></span> Aggiornato alle {{.Time}}
+				</p>
+			</div>
+			<a href="/" class="button" data-current="true" aria-current="page">
+				<span class="button__icon" aria-hidden="true">↻</span> Aggiorna
+			</a>
+		</div>
+		<div class="tiles">
+			{{range $i, $t := .Tiles}}
+				<a href="{{$t.Href}}" class="tile tile--{{$t.Tone}}" style="--i: {{$i}}">
+					<span class="tile__icon" aria-hidden="true">{{$t.Icon}}</span>
+					<span class="tile__value">{{$t.Value}}</span>
+					<span class="tile__label">{{$t.Label}}</span>
+				</a>
+			{{end}}
+		</div>
+	</section>
+{{end}}
+
+{{define "card_open"}}
+	<article class="card card--{{.ID}}" id="{{.ID}}" style="--i: {{.Index}}">
+		<header class="card__header">
+			<span class="card__icon" aria-hidden="true">{{.Icon}}</span>
+			<h2 class="card__title">{{.Title}}</h2>
+			{{if .Live}}
+				<span class="card__badge">
+					<span class="live">
+						<span class="live__dot" aria-hidden="true"></span>
+						Live
+					</span>
+				</span>
+			{{else if .Badge}}
+				<span class="card__badge">{{.Badge}}</span>
+			{{end}}
+		</header>
+		<div class="card__body">
+{{end}}
+
+{{define "card_close"}}
+		</div>
+	</article>
+{{end}}
+
+{{define "error"}}<p class="message message--error">⚠️ {{.}}</p>{{end}}
+
+{{define "metro"}}
+	{{template "card_open" .MetroCard}}
+		{{if .MetroErr}}
+			{{template "error" "Impossibile caricare lo status."}}
+		{{else}}
+			<ul class="metro-list">
+				{{range $i, $row := .Metro}}
+					<li class="metro-row metro-row--{{$row.Tone}}" style="--j: {{$i}}; --line: var(--color-line-{{lower $row.Line}}, var(--color-primary))">
+						<span class="line-badge">{{$row.Line}}</span>
+						<span class="metro-row__track" aria-hidden="true"></span>
+						<span class="status-pill status-pill--{{$row.Tone}}">
+							<span class="status-pill__dot" aria-hidden="true"></span>
+							{{$row.Status}}
+						</span>
+					</li>
+				{{end}}
+			</ul>
+		{{end}}
+	{{template "card_close"}}
+{{end}}
+
+{{define "surface"}}
+	{{template "card_open" .SurfaceCard}}
+		{{if .SurfaceErr}}
+			{{template "error" "Impossibile caricare gli avvisi."}}
+		{{else if not .Alerts}}
+			<p class="empty">☀️ Nessun avviso, tutto regolare</p>
+		{{else}}
+			<ul class="alert-list">
+				{{range $i, $a := .Alerts}}
+					<li class="alert-list__item" style="--j: {{$i}}">
+						<span class="alert-list__icon" aria-hidden="true">{{$a.Icon}}</span>
+						<p class="alert-list__text">
+							<strong>{{$a.Title}}</strong>
+							{{if $a.Rest}}{{" "}}{{$a.Rest}}{{end}}
+						</p>
+					</li>
+				{{end}}
+			</ul>
+		{{end}}
+	{{template "card_close"}}
+{{end}}
+
+{{define "weather"}}
+	{{template "card_open" .WeatherCard}}
+		{{with .Weather}}
+			<div class="weather">
+				<div class="weather__now">
+					<span class="weather__icon" aria-hidden="true">{{.Condition.Icon}}</span>
+					<div>
+						<p class="weather__temp">{{degrees .Temperature}}</p>
+						<p class="weather__label">{{.Condition.Label}}</p>
+					</div>
+					<p class="weather__range">
+						<span>
+							<span class="text-muted">Max</span> {{degrees .Max}}
+						</span>
+						<span>
+							<span class="text-muted">Min</span> {{degrees .Min}}
+						</span>
+					</p>
+				</div>
+				<dl class="weather__stats">
+					<div>
+						<dt>Percepita</dt>
+						<dd>{{degrees .ApparentTemperature}}</dd>
+					</div>
+					<div>
+						<dt>Umidità</dt>
+						<dd>{{num .Humidity}}%</dd>
+					</div>
+					<div>
+						<dt>Vento</dt>
+						<dd>{{round .WindSpeed}} km/h</dd>
+					</div>
+				</dl>
+				{{if .Hourly}}
+					<ol class="weather__hours">
+						{{range $i, $h := .Hourly}}
+							<li class="weather__hour" style="--j: {{$i}}" title="{{$h.Condition.Label}}">
+								<span class="text-muted">{{hour $h.Time}}</span>
+								<span class="weather__hour-icon" aria-hidden="true">{{$h.Condition.Icon}}</span>
+								<strong>{{degrees $h.Temperature}}</strong>
+								<span class="weather__rain">{{rain $h.PrecipitationProbability}}</span>
+							</li>
+						{{end}}
+					</ol>
+				{{end}}
+				<p class="card__source">
+					Dati{{" "}}
+					<a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>
+				</p>
+			</div>
+		{{else}}
+			{{template "error" "Impossibile caricare il meteo."}}
+		{{end}}
+	{{template "card_close"}}
+{{end}}
+
+{{define "air"}}
+	{{template "card_open" .AirCard}}
+		{{if .AirErr}}
+			{{template "error" "Impossibile caricare i dati."}}
+		{{else if not .Air}}
+			<p class="empty">Nessun dato disponibile</p>
+		{{else}}
+			<ul class="air-list">
+				{{range $i, $item := .Air}}
+					<li class="air-list__item" style="--j: {{$i}}">
+						<span class="air-list__name">{{$item.Name}}</span>
+						<span class="air-list__value">{{$item.Value}} <small>µg/m³</small></span>
+						<span class="air-list__level air-list__level--{{$item.Level}}">{{$item.LevelLabel}}</span>
+						<span class="aqi-meter" aria-hidden="true">
+							{{range $k, $seg := $item.Meter}}
+								<span class="aqi-meter__seg{{if $seg.On}} is-on{{end}}{{if $seg.Current}} is-current{{end}}" style="--seg: var(--color-aqi-{{$seg.Level}}); --k: {{$k}}"></span>
+							{{end}}
+						</span>
+					</li>
+				{{end}}
+			</ul>
+			<p class="card__source">
+				{{.AirNote}}. Media delle stazioni di Milano, livelli secondo l'
+				<a href="https://airindex.eea.europa.eu/AQI/index.html" target="_blank" rel="noopener noreferrer">indice europeo</a>. Dati{{" "}}
+				<a href="https://www.arpalombardia.it/temi-ambientali/aria/" target="_blank" rel="noopener noreferrer">ARPA Lombardia</a>
+			</p>
+		{{end}}
+	{{template "card_close"}}
+{{end}}
+
+{{define "link_list"}}
+	{{if .Err}}
+		{{template "error" .ErrorMessage}}
+	{{else if not .Items}}
+		<p class="text-muted">{{.EmptyMessage}}</p>
+	{{else}}
+		<ul class="link-list">
+			{{range $i, $item := .Items}}
+				<li class="link-list__item" style="--j: {{$i}}">
+					<a href="{{$item.URL}}" target="_blank" rel="nofollow noopener" class="link-list__link">
+						<span class="link-list__text">{{$item.Text}}</span>
+						{{if $item.Date}}<span class="chip">{{$item.Date}}</span>{{end}}
+						<span class="link-list__arrow" aria-hidden="true">→</span>
+					</a>
+				</li>
+			{{end}}
+		</ul>
+	{{end}}
+{{end}}
+
+{{define "map"}}
+	{{template "card_open" .MapCard}}
+		<a href="https://giromilano.atm.it/assets/images/schema_rete_metro.jpg" target="_blank" rel="nofollow noopener" class="map">
+			<img loading="lazy" class="map__img" src="https://giromilano.atm.it/assets/images/schema_rete_metro.jpg" alt="Mappa linee metropolitana"/>
+			<span class="map__hint">Apri a schermo intero ↗</span>
+		</a>
+	{{template "card_close"}}
+{{end}}
+
+{{define "footer"}}
+	<footer class="site-footer">
+		<p class="site-footer__line">
+			<span>{{.Year}}</span> - Sviluppato da{{" "}}
+			<a href="https://github.com/moebiusmania/atmmi-info-ui" target="_blank" class="site-footer__link" rel="noopener noreferrer">Salvatore Laisa</a>
+		</p>
+		<p class="site-footer__line">
+			Progetto indipendente e non affiliato o supportato da ATM Milano S.p.A.
+		</p>
+	</footer>
+{{end}}
