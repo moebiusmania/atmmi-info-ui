@@ -7,7 +7,8 @@ Unofficial dashboard for ATM Milano transit info (metro status, surface alerts, 
 weather, air quality), built as a single **Go** server: standard library `net/http` +
 `html/template`, `goquery` for scraping, esbuild's Go API for the stylesheet. It builds to one
 self-contained binary (templates, CSS and `static/` are embedded via `//go:embed` in `main.go`). UI
-copy is Italian (`<html lang="it-IT">`). It was ported from a Deno/Fresh app and keeps its output
+copy is Italian (`<html lang="it-IT">`). Deployed on Render as a native Go web service
+(https://atmmi-info-ui.onrender.com). It was ported from a Deno/Fresh app and keeps its output
 (HTML, CSS and JSON API responses) identical.
 
 ## Commands

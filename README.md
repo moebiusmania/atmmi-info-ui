@@ -8,7 +8,7 @@ A clean and modern web UI dashboard that displays some quick informations from t
 slight messy and non-responsive website_), retrieving the data through a custom REST API.
 
 **Live at:**
-[https://atmmi-info-ui.moebiusmania.deno.net/](https://atmmi-info-ui.moebiusmania.deno.net/)
+[https://atmmi-info-ui.onrender.com](https://atmmi-info-ui.onrender.com)
 
 ## Built with
 
@@ -18,6 +18,8 @@ slight messy and non-responsive website_), retrieving the data through a custom 
 - Vanilla CSS (`assets/styles.css`) — variables, nesting, no utility framework
 
 The app compiles to a single self-contained binary (templates, CSS and static files are embedded).
+
+Live version hosted on [Render](https://render.com/).
 
 ## Backend APIs
 
