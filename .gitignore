@@ -1,9 +1,4 @@
-node_modules
-package-lock.json
-*.log*
+/atmmi-info-ui
+*.log
 .env
-dist
-.vercel
 coverage
-_fresh
-.nuxt

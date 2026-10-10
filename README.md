@@ -12,16 +12,16 @@ slight messy and non-responsive website_), retrieving the data through a custom 
 
 ## Built with
 
-- [Deno](https://deno.com/) v2.x
-- [Fresh](https://fresh.deno.dev/) — full-stack framework with Preact and file-system routing
-- [TypeScript](https://www.typescriptlang.org/)
+- [Go](https://go.dev/) — standard library HTTP server and `html/template`, server-rendered
+- [goquery](https://github.com/PuerkitoBio/goquery) — HTML scraping
+- [esbuild](https://esbuild.github.io/) (Go API) — minifies the stylesheet at startup
 - Vanilla CSS (`assets/styles.css`) — variables, nesting, no utility framework
 
-Live version hosted on [Deno Deploy](https://deno.com/deploy).
+The app compiles to a single self-contained binary (templates, CSS and static files are embedded).
 
 ## Backend APIs
 
-APIs live under `/api/` (see `routes/api/`).
+APIs live under `/api/` (see `internal/web/server.go`).
 
 | **Route**        | **Description**                          |
 | ---------------- | ---------------------------------------- |
@@ -50,50 +50,46 @@ published as daily averages for the previous day. Levels follow the
 
 ## Install & run
 
-Clone the repo:
+Requires Go (version in `go.mod`). Clone the repo:
 
 ```
 git clone https://github.com/moebiusmania/atmmi-info-ui
 cd atmmi-info-ui
 ```
 
-Install npm dependencies (Tailwind / Fresh build toolchain) and cache:
+Start the development server (templates and CSS are re-read from disk on every request, the
+service worker is disabled):
 
 ```
-deno install
+go run . -dev
 ```
 
-Start the development server:
-
-```
-deno task dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) (port set in `vite.config.ts`). Use
-`deno task dev:host` to also expose the dev server on your local network.
+Open [http://localhost:3000](http://localhost:3000). The server listens on all interfaces, so it is
+also reachable from your local network.
 
 ## Development
 
 Upstream ATM / giromilano endpoints may require a permissive TLS client for certificate
-compatibility. This app uses `Deno.createHttpClient({ tlsOptions: { insecure: true } })` for those
-fetches only (see `lib/atm_fetch.ts` and the
-[Nuxt TLS discussion](https://github.com/nuxt/nuxt/issues/21609)).
+compatibility. This app skips certificate verification for those fetches only (see
+`internal/atm/fetch.go` and the [Nuxt TLS discussion](https://github.com/nuxt/nuxt/issues/21609)).
 
-Build for production:
+Run the checks and tests:
 
 ```
-deno task build
+gofmt -l . && go vet ./...
+go test ./...
+```
+
+Build and run for production:
+
+```
+go build -o atmmi-info-ui .
+PORT=8000 ./atmmi-info-ui        # or ./atmmi-info-ui -addr :8000; default port 3000
 ```
 
 The app is an installable PWA (`static/manifest.webmanifest`, `static/sw.js`). The service worker is
-registered only in production builds and needs a secure context (HTTPS or `localhost`). Icons in
+registered only without `-dev` and needs a secure context (HTTPS or `localhost`). Icons in
 `static/` are rendered from `static/favicon.svg` / `static/logo.svg`.
-
-Serve the production build:
-
-```
-deno task start
-```
 
 ## License
 
